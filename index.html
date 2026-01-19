@@ -748,7 +748,7 @@
             </div>
             <div class="projects-grid">
                 
-                <!-- Project 1: Mobile Prototype (Matches Screenshot) -->
+                <!-- Project 1: Mobile Prototype -->
                 <div class="project-card">
                     <div class="project-image">
                         <i class="fa-solid fa-mobile-screen-button"></i>
@@ -766,7 +766,7 @@
                     </div>
                 </div>
 
-                <!-- Project 2: Web Development -->
+                <!-- Project 2 -->
                 <div class="project-card">
                     <div class="project-image">
                         <i class="fa-solid fa-chart-simple"></i>
@@ -783,7 +783,7 @@
                     </div>
                 </div>
 
-                <!-- Project 3: AI & Cloud -->
+                <!-- Project 3 -->
                 <div class="project-card">
                     <div class="project-image">
                         <i class="fa-solid fa-robot"></i>
@@ -849,11 +849,19 @@
                     </div>
                 </div>
 
-                <!-- Contact Form (Functional) -->
+                <!-- Contact Form (Protected from Spam) -->
                 <form id="contactForm" class="contact-form">
-                    <!-- Hidden Configs for FormSubmit -->
+                    <!-- 1. Hidden Configs for FormSubmit -->
                     <input type="hidden" name="_subject" value="New Portfolio Submission!">
-                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <!-- 2. Re-enable Captcha (Set to true) -->
+                    <input type="hidden" name="_captcha" value="true">
+
+                    <!-- 3. Honeypot (Invisible to humans, catches bots) -->
+                    <input type="text" name="_honey" style="display:none">
+
+                    <!-- 4. Keyword Blacklist (Blocks common spam triggers) -->
+                    <input type="hidden" name="_blacklist" value="crypto, casino, bitcoin, forex, SEO, marketing, payout, promotion">
 
                     <div class="form-group">
                         <label class="form-label">Name</label>
@@ -919,8 +927,15 @@
         const spinner = document.getElementById('spinner');
 
         form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop page refresh
+            e.preventDefault(); 
             
+            // SECURITY CHECK: If the honeypot field is filled, it's a bot.
+            const honey = form.querySelector('input[name="_honey"]').value;
+            if (honey) {
+                console.warn("Spam bot detected.");
+                return; // Stop the script here
+            }
+
             // Show loading state
             spinner.style.display = 'inline-block';
             
@@ -938,7 +953,10 @@
                 },
                 body: json
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) throw new Error('Response error');
+                return response.json();
+            })
             .then(data => {
                 // Success
                 messageDiv.style.display = 'block';
@@ -963,5 +981,4 @@
         });
     </script>
 </body>
-
 </html>
