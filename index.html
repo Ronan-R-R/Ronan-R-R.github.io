@@ -6,6 +6,9 @@
     <meta name="description" content="Portfolio of Ronan Roberts - Software Engineer specializing in Mobile and Web Development">
     <title>Ronan Roberts | Software Engineer</title>
     
+    <!-- FAVICON (Browser Tab Icon) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563EB' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='16 18 22 12 16 6'%3E%3C/polyline%3E%3Cpolyline points='8 6 2 12 8 18'%3E%3C/polyline%3E%3C/svg%3E">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -352,7 +355,7 @@
             font-size: 0.95rem;
         }
 
-        /* --- PROJECTS --- */
+        /* --- PROJECTS SECTION --- */
         .projects {
             padding: 100px 0;
         }
@@ -369,6 +372,10 @@
             overflow: hidden;
             border: 1px solid var(--border);
             transition: 0.3s;
+            /* Flex properties for equal height */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .project-card:hover {
@@ -383,6 +390,7 @@
             align-items: center;
             justify-content: center;
             color: #333;
+            flex-shrink: 0; 
         }
         
         .project-image i {
@@ -392,6 +400,9 @@
 
         .project-info {
             padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; 
         }
 
         .project-info h3 {
@@ -407,8 +418,10 @@
 
         .stack-list {
             display: flex;
+            flex-wrap: wrap; 
             gap: 10px;
             margin-bottom: 25px;
+            margin-top: auto;
         }
 
         .stack-item {
@@ -418,6 +431,7 @@
             color: var(--primary);
             border-radius: 4px;
             font-weight: 600;
+            white-space: nowrap; 
         }
 
         .project-links {
@@ -425,6 +439,7 @@
             gap: 20px;
             border-top: 1px solid var(--border);
             padding-top: 20px;
+            margin-top: auto; 
         }
 
         .project-links a {
@@ -1001,5 +1016,4 @@
         });
     </script>
 </body>
-
 </html>
