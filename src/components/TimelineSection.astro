@@ -1,18 +1,26 @@
 ---
 const items = [
   {
+    date: 'April 2026 - Present',
+    role: 'Full Stack Learner',
+    company: 'Coast IT Pty (Ltd)',
+    badge: 'Current',
+    description:
+      'Collaborating with a team of software engineers and interns to design and build a full-stack application from concept to deployment. Contributing to UI design, frontend and backend development, database tasks, and security implementation. Using Git for version control, code reviews, and team collaboration within an Agile workflow.',
+  },
+  {
     date: 'Oct 2025 - Nov 2025',
     role: 'Full Stack Intern',
     company: 'Coast IT Pty (Ltd)',
     description:
-      'Collaborated with a team to design and build a full-stack application. Contributed to UI design, database tasks, and security implementation. Used Git for version control in an Agile environment.',
+      'Collaborated with a team of interns to design and build a full-stack application from concept to deployment. Contributed to UI design, frontend and backend development, database tasks, and security implementation. Used Git for version control, code reviews, and team collaboration within an Agile workflow.',
   },
   {
     date: 'June 2025',
     role: 'Intern',
     company: 'Open Vantage',
     description:
-      'Contributed to business requirements documentation, user stories, and software modeling. Gained hands-on experience with functional specifications and state flow diagrams.',
+      'Contributed to business requirements documentation, user story updates, and software modeling. Gained hands-on experience analyzing requirements, documenting functional specifications, and designing state flow diagrams.',
   },
   {
     date: '2023 - 2024',
@@ -23,10 +31,55 @@ const items = [
   },
   {
     date: '2023 - Present',
-    role: 'Software Engineering',
+    role: 'Software Engineering (NQF 6)',
     company: 'CTU Training Solutions, Boksburg',
     description:
-      'Studying software development, programming foundations, and system design. Covering the full lifecycle from requirements analysis through to deployment.',
+      'Working towards an occupational certificate in Software Engineering (SAQA ID 119458, NQF 6, 240 credits), issued by MICT SETA. Previously completed IT Systems Development NQF 5 (2024) and Programming Foundation NQF 4 (2023) through CTU.',
+  },
+  {
+    date: '2021',
+    role: 'National Senior Certificate',
+    company: 'Bergsig Academy, Rustenburg',
+    description: 'Matriculated.',
+  },
+]
+
+const certs = [
+  {
+    name: 'Software Engineer NQF 6',
+    issuer: 'MICT SETA',
+    year: '2025',
+    detail: 'SAQA ID 119458 - 240 Credits',
+  },
+  {
+    name: 'IT Systems Development NQF 5',
+    issuer: 'MICT SETA',
+    year: '2024',
+    detail: 'SAQA ID 48872 - 131 Credits',
+  },
+  {
+    name: 'AI-900: Azure AI Fundamentals',
+    issuer: 'Microsoft',
+    year: 'Feb 2024',
+    detail: 'Artificial intelligence and Azure AI services',
+  },
+  {
+    name: 'IT Systems Development NQF 4',
+    issuer: 'MICT SETA',
+    year: '2023',
+    detail: 'SAQA ID 78965 - 165 Credits',
+  },
+  {
+    name: 'IT Specialist: JavaScript',
+    issuer: 'Certiport',
+    year: '2023',
+    detail: '',
+  },
+  {
+    name: 'IT Specialist: HTML & CSS',
+    issuer: 'Certiport',
+    year: '2023',
+    detail: '',
   },
 ]
 ---
@@ -56,18 +109,57 @@ const items = [
           <!-- Dot -->
           <div
             class="absolute left-0 top-1.5 w-3 h-3 rounded-full -translate-x-[5px]"
-            style="background: var(--accent); box-shadow: 0 0 10px rgba(124,92,255,0.6); outline: 3px solid var(--bg)"
+            style="background: var(--accent); box-shadow: 0 0 10px rgba(124,92,255,0.6); outline: 3px solid #090910"
             aria-hidden="true"
           ></div>
 
-          <time class="block text-xs font-semibold uppercase tracking-[0.15em] mb-2" style="color: var(--accent)">
-            {item.date}
-          </time>
+          <div class="flex items-center gap-3 mb-2 flex-wrap">
+            <time class="text-xs font-semibold uppercase tracking-[0.15em]" style="color: var(--accent)">
+              {item.date}
+            </time>
+            {item.badge && (
+              <span
+                class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
+                style="background: rgba(124,92,255,0.15); color: var(--accent-2); border: 1px solid rgba(124,92,255,0.3)"
+              >
+                {item.badge}
+              </span>
+            )}
+          </div>
           <h3 class="font-display font-bold text-lg mb-0.5">{item.role}</h3>
           <p class="text-sm font-medium mb-3" style="color: var(--muted)">{item.company}</p>
           <p class="text-sm leading-relaxed" style="color: var(--muted)">{item.description}</p>
         </div>
       ))}
+    </div>
+
+    <!-- Certifications -->
+    <div class="mt-24" data-reveal>
+      <div class="section-tag">
+        <span class="inline-block w-6 h-px" style="background: var(--accent)"></span>
+        Certifications
+      </div>
+      <h2 class="font-display font-bold tracking-tight mb-10" style="font-size: clamp(1.6rem, 3vw, 2.2rem)">
+        Credentials
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" data-reveal-stagger>
+        {certs.map((cert) => (
+          <div
+            class="card p-5 flex flex-col gap-2"
+            style="background: rgba(255,255,255,0.02)"
+          >
+            <div class="flex items-start justify-between gap-3">
+              <h3 class="font-semibold text-sm leading-snug" style="color: var(--text)">{cert.name}</h3>
+              <span class="text-xs font-medium flex-shrink-0 mt-0.5" style="color: var(--accent)">{cert.year}</span>
+            </div>
+            <p class="text-xs font-semibold uppercase tracking-wider" style="color: var(--muted)">{cert.issuer}</p>
+            {cert.detail && (
+              <p class="text-xs" style="color: var(--muted); opacity: 0.7">{cert.detail}</p>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
 
   </div>
