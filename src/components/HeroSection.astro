@@ -1,0 +1,82 @@
+---
+import HeroScene from './HeroScene.tsx'
+
+const techTags = ['Flutter', 'React', 'Java', 'C#', 'Python', 'Azure', 'SQL']
+---
+
+<section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+
+  <!-- Background radial aura -->
+  <div
+    id="hero-aura"
+    class="absolute pointer-events-none select-none"
+    aria-hidden="true"
+    style="
+      right: -5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(700px, 80vw);
+      height: min(700px, 80vw);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,92,255,0.14) 0%, rgba(124,92,255,0.03) 50%, transparent 70%);
+    "
+  ></div>
+
+  <div class="container w-full py-20 lg:py-28">
+    <div class="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-12 xl:gap-16 items-center">
+
+      <!-- Text content -->
+      <div data-reveal>
+        <div class="section-tag">
+          <span class="inline-block w-6 h-px" style="background: var(--accent)"></span>
+          Software Engineer
+        </div>
+
+        <h1 class="font-display font-bold tracking-tight leading-[1.04] mb-6"
+          style="font-size: clamp(2.6rem, 6vw, 4.4rem)">
+          Full-stack.<br>
+          <span class="gradient-text">Every screen.</span>
+        </h1>
+
+        <p class="mb-10 leading-relaxed max-w-[500px]" style="color: var(--muted); font-size: 1.1rem">
+          Building web apps and Flutter mobile products from Germiston, Gauteng.
+          Open to freelance projects and new opportunities.
+        </p>
+
+        <div class="flex flex-wrap gap-4 mb-12">
+          <a href="#projects" class="btn-primary" data-magnetic>View work</a>
+          <a href="#contact" class="btn-ghost" data-magnetic>Get in touch</a>
+        </div>
+
+        <!-- Tech tags -->
+        <div class="flex flex-wrap gap-2.5">
+          {techTags.map(tag => (
+            <span
+              class="px-3 py-1.5 rounded-full text-xs font-medium"
+              style="border: 1px solid var(--border); color: var(--muted); background: rgba(255,255,255,0.02)"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- 3D Scene -->
+      <div class="relative h-[420px] md:h-[520px] lg:h-[580px]" aria-hidden="true">
+        <HeroScene client:only="react" />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div
+    class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+    aria-hidden="true"
+    style="color: var(--muted); opacity: 0.45"
+  >
+    <span class="text-[10px] font-semibold uppercase tracking-[0.2em]">Scroll</span>
+    <div class="w-px h-8" style="background: linear-gradient(to bottom, var(--muted), transparent)"></div>
+  </div>
+
+</section>

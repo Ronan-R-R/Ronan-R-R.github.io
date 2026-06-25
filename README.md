@@ -1,60 +1,56 @@
-# Portfolio Website - Ronan Roberts
+# Ronan Roberts - Portfolio
 
-A responsive, professional portfolio website designed to showcase software engineering projects, technical skills, and professional experience. The site features a modern dark-themed UI and is built for deployment on GitHub Pages.
+Personal portfolio site. Built with Astro + React islands, deployed to GitHub Pages.
 
-## Live Demo
+## Stack
+
+- Astro 4 (static output)
+- React 18 (islands only: 3D hero, contact form)
+- React Three Fiber + Three.js (WebGL hero, desktop only)
+- GSAP + Lenis (scroll animations, smooth scroll)
+- Tailwind CSS 3
+- Fontsource Variable (Inter + Space Grotesk, self-hosted via npm)
+- FormSubmit.co (contact form, no backend)
+
+## Local dev
+
+```
+npm install
+npm run dev
+```
+
+## Build
+
+```
+npm run build
+npm run preview
+```
+
+## Deploy
+
+Pushes to `main` trigger the GitHub Actions workflow at `.github/workflows/deploy.yml`, which builds Astro and deploys the `dist/` output to GitHub Pages.
+
+One-time setup: go to **Settings > Pages**, set **Source** to **GitHub Actions**.
+
+## Adding a project
+
+Edit `src/components/ProjectsSection.astro`. Add an entry to the `projects` array at the top of the file. Drop a preview image (AVIF/WebP/SVG preferred) into `public/images/` and reference it in the `image` field.
+
+## Replacing placeholder images
+
+The four placeholder SVGs in `public/images/` are branded stand-ins. Replace them with real screenshots named identically:
+
+- `echo-software.svg` (or `.avif`, `.webp`)
+- `ffp.svg`
+- `portfolio-app.svg`
+- `skycast.svg`
+
+If you switch to AVIF/WebP, update the `src` paths in `ProjectsSection.astro`.
+
+## Contact form
+
+FormSubmit.co delivers messages to `ronanr2003@gmail.com`. The first submission after a fresh activation will trigger a confirmation email from FormSubmit - click Activate to start receiving messages.
+
+## Live site
 
 https://ronan-r-r.github.io
-
-## Features
-
-- **Responsive Design:** Fully adaptive layout that works on mobile, tablet, and desktop devices.
-- **Modern UI:** Dark mode aesthetic using CSS variables for consistent theming.
-- **Project Showcase:** Grid layout to display featured projects with technology tags.
-- **Experience Timeline:** Vertical timeline displaying career history and education.
-- **Functional Contact Form:** Integrated with FormSubmit.co for serverless email handling via AJAX.
-- **Smooth Navigation:** Sticky header with smooth scrolling to section anchors.
-
-## Technologies Used
-
-- **HTML5:** Semantic markup structure.
-- **CSS3:** Flexbox, CSS Grid, Media Queries, and CSS Variables.
-- **JavaScript:** DOM manipulation, Mobile Menu toggling, and Fetch API for the contact form.
-- **Font Awesome:** Iconography.
-- **Google Fonts:** Typography (Inter font family).
-
-## Installation and Local Setup
-
-1. Clone the repository:
-   git clone https://github.com/Ronan-R-R/Ronan-R-R.github.io.git
-
-2. Navigate to the project directory:
-   cd Ronan-R-R.github.io
-
-3. Open the index.html file in your preferred web browser to view the site locally.
-
-## Configuration
-
-### Contact Form
-The contact form uses FormSubmit.co to send emails without a backend server.
-
-1. In index.html, the fetch URL is set to: https://formsubmit.co
-2. When the first submission occurs, FormSubmit will send an activation email to the address specified.
-3. You must click "Activate" in that email for the form to start forwarding messages to your inbox.
-
-### Icons
-The site uses Font Awesome CDN. If icons do not load, ensure you have an active internet connection or update the CDN link in the head tag.
-
-## Deployment
-
-This project is designed to be hosted on GitHub Pages.
-
-1. Push the index.html file to your repository (main branch).
-2. Go to Repository Settings > Pages.
-3. Under "Build and deployment", select "Deploy from a branch".
-4. Select "main" as the branch and "/" as the folder.
-5. Click Save.
-
-## License
-
-This project is open source and available for personal use and modification.

@@ -1,0 +1,69 @@
+---
+const cards = [
+  {
+    title: 'Web Development',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+    items: ['HTML, CSS, JavaScript', 'Backends: Java, C#, Python', 'Database design (SQL)', 'Azure fundamentals', 'REST API integration'],
+    span: 'lg:col-span-2',
+    accent: true,
+  },
+  {
+    title: 'Mobile Apps',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>`,
+    items: ['Cross-platform with Flutter/Dart', 'Offline-first architecture', 'UI/UX implementation', 'State management', 'API integration'],
+    span: '',
+    accent: false,
+  },
+  {
+    title: 'Engineering',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+    items: ['Requirements analysis', 'Agile workflow and Git', 'Security implementation', 'State flow diagrams', 'Technical documentation'],
+    span: '',
+    accent: false,
+  },
+]
+---
+
+<section id="about" class="py-28 lg:py-36">
+  <div class="container">
+
+    <div class="mb-14" data-reveal>
+      <div class="section-tag">
+        <span class="inline-block w-6 h-px" style="background: var(--accent)"></span>
+        What I build
+      </div>
+      <h2 class="font-display font-bold tracking-tight" style="font-size: clamp(2rem, 4vw, 3rem)">
+        Technical Expertise
+      </h2>
+      <p class="mt-4 max-w-lg" style="color: var(--muted)">
+        From concept to deployment across web and mobile.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" data-reveal-stagger>
+      {cards.map(card => (
+        <div
+          class={`card p-8 flex flex-col gap-5 ${card.span}`}
+          style={card.accent ? 'background: linear-gradient(135deg, rgba(124,92,255,0.08), rgba(167,139,250,0.04))' : ''}
+        >
+          <div
+            class="w-12 h-12 rounded-xl flex items-center justify-center"
+            style="background: rgba(124,92,255,0.12); color: var(--accent)"
+            aria-hidden="true"
+            set:html={card.icon}
+          />
+          <h3 class="font-display font-semibold text-xl">{card.title}</h3>
+          <ul class="space-y-2.5">
+            {card.items.map(item => (
+              <li class="flex items-start gap-3 text-sm" style="color: var(--muted)">
+                <span class="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style="background: var(--accent-2)"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

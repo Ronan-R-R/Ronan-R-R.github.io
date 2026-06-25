@@ -1,0 +1,132 @@
+---
+---
+
+<header id="site-header" class="fixed top-0 inset-x-0 z-50">
+  <div class="container">
+    <nav id="nav-inner" class="flex items-center justify-between h-20 transition-all duration-300">
+
+      <a href="#hero" class="font-display font-bold text-xl tracking-tight">
+        Ronan<span style="color: var(--accent)">.</span>
+      </a>
+
+      <ul class="hidden md:flex items-center gap-8">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#experience" class="nav-link">Experience</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <a href="#contact" class="hidden md:inline-flex btn-primary text-sm" data-magnetic>
+        Hire me
+      </a>
+
+      <button
+        id="menu-btn"
+        class="md:hidden p-2 rounded-lg transition-colors"
+        style="color: var(--muted)"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-drawer"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+    </nav>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div
+  id="mobile-drawer"
+  class="fixed inset-0 z-40"
+  style="display: none"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Navigation menu"
+>
+  <div id="drawer-backdrop" class="absolute inset-0" style="background: rgba(8,8,13,0.75); backdrop-filter: blur(8px)"></div>
+
+  <div
+    class="absolute right-0 top-0 bottom-0 w-72 flex flex-col p-8 gap-6"
+    style="background: var(--surface); border-left: 1px solid var(--border)"
+  >
+    <button
+      id="close-drawer"
+      class="self-end p-2 rounded-lg transition-colors"
+      style="color: var(--muted)"
+      aria-label="Close menu"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <nav class="flex flex-col gap-5 mt-2">
+      <a href="#about" class="drawer-link text-lg font-semibold transition-colors" style="color: var(--text)">About</a>
+      <a href="#experience" class="drawer-link text-lg font-semibold transition-colors" style="color: var(--text)">Experience</a>
+      <a href="#projects" class="drawer-link text-lg font-semibold transition-colors" style="color: var(--text)">Projects</a>
+      <a href="#contact" class="drawer-link text-lg font-semibold transition-colors" style="color: var(--text)">Contact</a>
+    </nav>
+
+    <a href="#contact" class="btn-primary text-center mt-auto drawer-link">Hire me</a>
+  </div>
+</div>
+
+<script>
+  const header = document.getElementById('site-header')!
+  const menuBtn = document.getElementById('menu-btn')!
+  const drawer = document.getElementById('mobile-drawer')!
+  const closeBtn = document.getElementById('close-drawer')!
+  const backdrop = document.getElementById('drawer-backdrop')!
+  const drawerLinks = document.querySelectorAll('.drawer-link')
+
+  // Scroll-aware header
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40)
+  }, { passive: true })
+
+  // Drawer open/close
+  const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+
+  function openDrawer() {
+    drawer.style.display = 'block'
+    drawer.setAttribute('aria-hidden', 'false')
+    menuBtn.setAttribute('aria-expanded', 'true')
+    document.body.style.overflow = 'hidden'
+    requestAnimationFrame(() => closeBtn.focus())
+    drawer.addEventListener('keydown', trapFocus)
+  }
+
+  function closeDrawer() {
+    drawer.style.display = 'none'
+    drawer.setAttribute('aria-hidden', 'true')
+    menuBtn.setAttribute('aria-expanded', 'false')
+    document.body.style.overflow = ''
+    menuBtn.focus()
+    drawer.removeEventListener('keydown', trapFocus)
+  }
+
+  function trapFocus(e: KeyboardEvent) {
+    if (e.key === 'Escape') { closeDrawer(); return }
+    if (e.key !== 'Tab') return
+    const focusable = Array.from(drawer.querySelectorAll<HTMLElement>(focusableSelector))
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus()
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus()
+    }
+  }
+
+  menuBtn.addEventListener('click', openDrawer)
+  closeBtn.addEventListener('click', closeDrawer)
+  backdrop.addEventListener('click', closeDrawer)
+  drawerLinks.forEach(link => link.addEventListener('click', closeDrawer))
+</script>

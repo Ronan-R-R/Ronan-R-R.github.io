@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210" width="600" height="210">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111118"/>
+      <stop offset="100%" stop-color="#181826"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7C5CFF" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#7C5CFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="210" fill="url(#bg)"/>
+  <rect width="600" height="210" fill="url(#glow)"/>
+  <!-- Grid lines -->
+  <line x1="0" y1="70" x2="600" y2="70" stroke="#262636" stroke-width="0.5"/>
+  <line x1="0" y1="140" x2="600" y2="140" stroke="#262636" stroke-width="0.5"/>
+  <line x1="200" y1="0" x2="200" y2="210" stroke="#262636" stroke-width="0.5"/>
+  <line x1="400" y1="0" x2="400" y2="210" stroke="#262636" stroke-width="0.5"/>
+  <!-- Abstract hexagon accent -->
+  <polygon points="480,35 520,58 520,104 480,127 440,104 440,58" fill="none" stroke="#7C5CFF" stroke-width="1" opacity="0.4"/>
+  <polygon points="480,55 508,71 508,103 480,119 452,103 452,71" fill="rgba(124,92,255,0.08)" stroke="#A78BFA" stroke-width="0.5" opacity="0.5"/>
+  <!-- Text -->
+  <text x="48" y="98" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700" fill="#ECECF4">Echo</text>
+  <text x="48" y="138" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700" fill="#7C5CFF">Software</text>
+  <text x="48" y="170" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8B8BA3">echosoftware.co.za</text>
+  <!-- Replace with a real screenshot -->
+  <text x="600" y="198" font-family="system-ui" font-size="11" fill="#262636" text-anchor="end">Replace with screenshot</text>
+</svg>
