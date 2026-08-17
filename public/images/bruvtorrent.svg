@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210" width="600" height="210">
+  <defs>
+    <linearGradient id="bgbt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D0D1A"/>
+      <stop offset="100%" stop-color="#111118"/>
+    </linearGradient>
+    <radialGradient id="glowbt" cx="72%" cy="42%" r="55%">
+      <stop offset="0%" stop-color="#7C5CFF" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#7C5CFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="210" fill="url(#bgbt)"/>
+  <rect width="600" height="210" fill="url(#glowbt)"/>
+  <!-- Peer swarm network graph -->
+  <g stroke="#262636" stroke-width="1">
+    <line x1="470" y1="60" x2="420" y2="105"/>
+    <line x1="470" y1="60" x2="520" y2="95"/>
+    <line x1="420" y1="105" x2="480" y2="150"/>
+    <line x1="520" y1="95" x2="480" y2="150"/>
+    <line x1="420" y1="105" x2="520" y2="95"/>
+  </g>
+  <g>
+    <circle cx="470" cy="60" r="9" fill="#7C5CFF"/>
+    <circle cx="420" cy="105" r="7" fill="#A78BFA" opacity="0.7"/>
+    <circle cx="520" cy="95" r="7" fill="#A78BFA" opacity="0.7"/>
+    <circle cx="480" cy="150" r="6" fill="#7C5CFF" opacity="0.5"/>
+  </g>
+  <!-- Progress bar (download) -->
+  <rect x="48" y="150" width="230" height="8" rx="4" fill="#262636"/>
+  <rect x="48" y="150" width="150" height="8" rx="4" fill="#7C5CFF" opacity="0.8"/>
+  <!-- Text -->
+  <text x="48" y="94" font-family="system-ui, -apple-system, sans-serif" font-size="30" font-weight="700" fill="#ECECF4">BruvTorrent</text>
+  <text x="48" y="124" font-family="system-ui" font-size="13" fill="#8B8BA3">BitTorrent client from scratch - Python + PySide6</text>
+</svg>
