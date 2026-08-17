@@ -18,25 +18,13 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: 'Echo Software',
-    tagline: 'Custom software studio website',
-    description:
-      'Designed and developed the company website for Echo Software, a Pretoria-based studio building custom digital products for clients.',
-    image: '/images/echo-software.svg',
-    imageAlt: 'Echo Software company website',
-    stack: ['HTML', 'CSS', 'JavaScript'],
-    links: [
-      { label: 'Visit site', href: 'https://www.echosoftware.co.za', icon: 'globe' },
-    ],
-  },
-  {
     title: 'FFP',
-    tagline: 'Fleet Failure Predictor - trucking SaaS',
+    tagline: 'Fleet Failure Predictor',
     description:
-      'Built end to end with one other developer: web dashboard, REST API, database, and Flutter mobile app. A fleet management platform for South African trucking companies with offline-first mobile, fuel OCR, trip tracking, and compliance monitoring.',
+      'End-to-end fleet-management platform for trucking companies: web dashboard, REST API, database, and an offline-first Flutter mobile app with fuel-receipt OCR, trip tracking, and compliance monitoring.',
     image: '/images/ffp.svg',
     imageAlt: 'FFP fleet management platform',
-    stack: ['Flutter', 'Dart', 'Firebase', 'Web App'],
+    stack: ['Flutter', 'Dart', 'Firebase'],
     badge: 'Login required',
     links: [
       { label: 'Live app', href: 'https://trucking-predict.web.app', icon: 'external' },
@@ -44,26 +32,49 @@ const projects: Project[] = [
     ],
   },
   {
-    title: 'Portfolio App',
-    tagline: 'Cross-platform mobile app',
+    title: 'BruvTorrent',
+    tagline: 'BitTorrent client from scratch',
     description:
-      'A cross-platform mobile application featuring custom UI components, state management, and smooth navigation built with Flutter and Dart.',
-    image: '/images/portfolio-app.svg',
-    imageAlt: 'Portfolio mobile app preview',
-    stack: ['Flutter', 'Dart'],
+      'A BitTorrent client built from scratch in Python with a PySide6 desktop UI, implementing the protocol by hand. Handles torrent files and magnet links, HTTP(S) and UDP trackers, seeding, resume with disk verification, and SHA-1 piece verification, backed by a pytest test suite.',
+    image: '/images/bruvtorrent.svg',
+    imageAlt: 'BruvTorrent BitTorrent client',
+    stack: ['Python', 'asyncio', 'PySide6'],
     links: [
-      { label: 'Download', href: 'https://github.com/Ronan-R-R/Portfolio-App/releases/latest', icon: 'download' },
-      { label: 'Source', href: 'https://github.com/Ronan-R-R/Portfolio-App', icon: 'github' },
+      { label: 'Source', href: 'https://github.com/Ronan-R-R/BruvTorrent', icon: 'github' },
+    ],
+  },
+  {
+    title: 'yt-mp3',
+    tagline: 'Cross-platform audio downloader',
+    description:
+      'A local audio downloader for desktop (Windows, Linux) and Android. Bundles ffmpeg for MP3 conversion on desktop and uses Kivy for the Android build, with automated multi-platform builds via GitHub Actions.',
+    image: '/images/yt-mp3.svg',
+    imageAlt: 'yt-mp3 audio downloader',
+    stack: ['Python', 'Kivy', 'GitHub Actions', 'ffmpeg'],
+    links: [
+      { label: 'Source', href: 'https://github.com/Ronan-R-R/yt-mp3', icon: 'github' },
+    ],
+  },
+  {
+    title: 'Echo Software',
+    tagline: 'Software studio website',
+    description:
+      'Live company website for Echo Software, a Pretoria-based software studio building custom digital products for clients.',
+    image: '/images/echo-software.svg',
+    imageAlt: 'Echo Software company website',
+    stack: ['HTML', 'CSS', 'JavaScript'],
+    links: [
+      { label: 'Visit site', href: 'https://echosoftware.co.za', icon: 'globe' },
     ],
   },
   {
     title: 'SkyCast',
     tagline: 'Real-time weather dashboard',
     description:
-      'Responsive weather app with real-time data from OpenWeatherMap, interactive Leaflet maps, and dynamic UI themes that shift based on live conditions.',
+      'Real-time weather dashboard with a 5-day forecast, interactive maps, and dynamic theming that shifts with live conditions.',
     image: '/images/skycast.svg',
     imageAlt: 'SkyCast weather dashboard',
-    stack: ['JavaScript', 'OpenWeather API', 'Leaflet.js'],
+    stack: ['JavaScript', 'OpenWeatherMap API', 'Leaflet.js'],
     links: [
       { label: 'Live demo', href: 'https://ronan-r-r.github.io/SkyCast/', icon: 'globe' },
       { label: 'Source', href: 'https://github.com/Ronan-R-R/SkyCast', icon: 'github' },
