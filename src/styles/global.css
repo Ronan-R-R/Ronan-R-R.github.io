@@ -385,3 +385,76 @@
       linear-gradient(135deg, var(--surface), var(--surface-2));
   }
 }
+
+/* ===== Horizontal cinematic layout ===== */
+.h-outer { overflow: hidden; }
+.h-track { display: flex; align-items: stretch; will-change: transform; }
+.h-panel {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6.5rem clamp(1.5rem, 6vw, 7rem) 5rem;
+  position: relative;
+}
+.h-panel--auto { flex: 0 0 auto; width: auto; }
+.h-eyebrow { font-family: var(--mono, monospace); font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
+.h-title { font-size: clamp(2.4rem, 7vw, 6rem); line-height: 0.94; letter-spacing: -0.03em; }
+
+.h-cards { display: flex; gap: 1.5rem; align-items: stretch; height: 100%; padding: 6.5rem 0 5rem; }
+.h-card {
+  flex: 0 0 clamp(280px, 30vw, 380px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: linear-gradient(160deg, var(--surface), var(--surface-2));
+  transition: border-color 0.3s, transform 0.3s;
+}
+.h-card:hover { border-color: rgba(var(--accent-rgb), 0.45); transform: translateY(-6px); }
+.h-card__num { font-family: var(--mono, monospace); color: var(--accent); font-size: 0.8rem; }
+
+.h-hud {
+  position: fixed;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: var(--mono, monospace);
+  font-size: 0.72rem;
+  color: var(--muted);
+  background: rgba(var(--bg-rgb), 0.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+}
+.h-hud__bar { width: 110px; height: 2px; background: var(--border); position: relative; border-radius: 2px; overflow: hidden; }
+.h-hud__bar i { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--accent); }
+.h-count b { color: var(--text); }
+
+.h-brand { position: fixed; top: 1.4rem; left: clamp(1.5rem, 6vw, 3rem); z-index: 40; font-family: var(--mono, monospace); font-weight: 700; }
+.h-nav { position: fixed; top: 1.4rem; right: clamp(1.5rem, 6vw, 3rem); z-index: 40; display: flex; gap: 1.1rem; }
+.h-nav button { font-family: var(--mono, monospace); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); transition: color 0.2s; }
+.h-nav button:hover, .h-nav button.active { color: var(--accent); }
+
+:root { --mono: ui-monospace, 'SF Mono', 'SFMono-Regular', Menlo, Consolas, monospace; }
+
+@media (max-width: 860px), (prefers-reduced-motion: reduce) {
+  .h-outer { overflow: visible; }
+  .h-track { flex-direction: column; }
+  .h-panel, .h-panel--auto { flex: none; width: 100%; height: auto; min-height: 90vh; }
+  .h-cards { flex-direction: column; height: auto; padding: 2rem 0; }
+  .h-card { flex: none; }
+  .h-hud, .h-nav { display: none; }
+}
