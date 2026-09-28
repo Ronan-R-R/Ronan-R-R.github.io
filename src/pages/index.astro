@@ -1,23 +1,24 @@
 ---
 import Base from '../layouts/Base.astro'
-import HeroScene from '../components/HeroScene.tsx'
 import ContactForm from '../components/ContactForm.tsx'
 import '../styles/global.css'
 
 const nav = [
-  { n: '01', label: 'Index', href: '#top' },
-  { n: '02', label: 'Profile', href: '#profile' },
-  { n: '03', label: 'Work', href: '#work' },
-  { n: '04', label: 'Record', href: '#record' },
-  { n: '05', label: 'Contact', href: '#contact' },
+  { label: 'Profile', href: '#profile' },
+  { label: 'Work', href: '#work' },
+  { label: 'Record', href: '#record' },
+  { label: 'Contact', href: '#contact' },
 ]
+
+const stack = ['Java', 'C#', 'Python', 'Node.js', 'Flutter', 'Dart', 'Rust', 'SQL', 'Azure', 'Firebase', 'REST APIs', 'Git']
 
 const skills = [
   { k: 'Languages', v: ['Java', 'C#', 'Python', 'JavaScript', 'SQL', 'Dart', 'Rust'] },
   { k: 'Web', v: ['HTML', 'CSS', 'Node.js', 'REST APIs'] },
   { k: 'Mobile', v: ['Flutter', 'Dart', 'Kivy'] },
   { k: 'Cloud / DB', v: ['Azure', 'Firebase'] },
-  { k: 'Tools', v: ['Git', 'CI/CD', 'pytest', 'Agile', 'Async / network'] },
+  { k: 'Tools', v: ['Git', 'CI/CD', 'pytest', 'Agile'] },
+  { k: 'Spoken', v: ['English', 'Afrikaans'] },
 ]
 
 const work = [
@@ -29,10 +30,10 @@ const work = [
 ]
 
 const record = [
-  { year: '2026 -', role: 'Junior Software Engineer', org: 'Coast IT Pty (Ltd) · Full-time' },
-  { year: '2025', role: 'Junior Software Engineer', org: 'Coast IT Pty (Ltd) · Internship' },
+  { year: '2026 -', role: 'Junior Software Engineer', org: 'Coast IT Pty (Ltd), Full-time' },
+  { year: '2025', role: 'Junior Software Engineer', org: 'Coast IT Pty (Ltd), Internship' },
   { year: '2025', role: 'Intern', org: 'Open Vantage' },
-  { year: '2025 - 26', role: 'Freelance Web Developer', org: 'Self-employed' },
+  { year: '2025-26', role: 'Freelance Web Developer', org: 'Self-employed' },
   { year: '2023 -', role: 'Software Engineering (NQF 6)', org: 'CTU Training Solutions, Boksburg' },
   { year: '2021', role: 'National Senior Certificate', org: 'Bergsig Academy, Rustenburg' },
 ]
@@ -50,99 +51,105 @@ const certs = [
 <Base>
   <a id="top"></a>
 
-  <!-- Fixed index bar -->
-  <header id="site-header" class="fixed top-0 inset-x-0 z-50" style="background: rgba(var(--bg-rgb),0.85); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border)">
+  <header id="site-header" class="fixed top-0 inset-x-0 z-50">
     <div class="container-wide">
-      <div id="nav-inner" class="flex items-center justify-between h-16 transition-all duration-300">
-        <a href="#top" class="ed-mono font-bold tracking-tight">RR / ROBERTS</a>
-        <nav class="hidden md:flex items-center gap-6">
+      <div id="nav-inner" class="flex items-center justify-between h-[72px] transition-all duration-300">
+        <a href="#top" class="ed-mono font-bold tracking-tight text-sm">RR / ROBERTS</a>
+        <nav class="hidden md:flex items-center gap-7">
           {nav.map(item => (
-            <a href={item.href} class="ed-mono text-xs uppercase tracking-widest nav-link">
-              <span style="color: var(--accent)">{item.n}</span> {item.label}
-            </a>
+            <a href={item.href} class="ed-mono text-xs uppercase tracking-widest nav-link">{item.label}</a>
           ))}
         </nav>
-        <span class="ed-mono text-xs uppercase tracking-widest hidden sm:inline" style="color: var(--muted)">Germiston, ZA</span>
+        <div class="flex items-center gap-4">
+          <span class="ed-avail hidden sm:inline-flex"><i></i>Available for work</span>
+          <button class="ed-menu-btn ed-mono text-xs uppercase tracking-widest" id="ed-menu-open" aria-label="Open menu">Menu</button>
+        </div>
       </div>
     </div>
   </header>
 
-  <main class="container-wide pt-24">
+  <div id="ed-mobile" aria-hidden="true">
+    <button id="ed-menu-close" class="ed-mono text-xs uppercase tracking-widest absolute top-6 right-6" style="color: var(--muted)" aria-label="Close menu">Close</button>
+    {nav.map(item => <a href={item.href} data-ed-mclose>{item.label}</a>)}
+  </div>
+
+  <main class="container-wide pt-[72px]">
 
     <!-- Masthead -->
-    <section class="pt-6 pb-16 lg:pb-24">
-      <div class="flex items-center justify-between ed-kicker mb-6">
-        <span>Full-stack Developer</span>
-        <span>Est. 2021 - Portfolio No.05</span>
-      </div>
-      <hr class="ed-rule-accent mb-8" />
+    <section class="min-h-[calc(100dvh-72px)] flex flex-col justify-center pt-10 pb-16">
+      <div class="ed-kicker mb-6" data-reveal>Full-stack Developer, Germiston ZA</div>
+      <hr class="ed-rule-accent mb-8" data-reveal />
 
-      <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-end">
-        <h1 class="ed-huge" style="font-size: clamp(3.2rem, 13vw, 11rem)" data-ed-title>
-          <span class="block">Ronan</span>
-          <span class="block ed-outline">Roberts</span>
-        </h1>
-        <div class="hidden lg:block w-[260px] h-[260px] border" style="border-color: var(--border)" aria-hidden="true">
-          <HeroScene client:only="react" />
-        </div>
-      </div>
+      <h1 class="ed-huge" style="font-size: clamp(3.4rem, 15vw, 13rem)" data-ed-title>
+        <span class="ed-line"><span>Ronan</span></span>
+        <span class="ed-line"><span class="ed-outline">Roberts</span></span>
+      </h1>
 
-      <hr class="ed-rule mt-8 mb-6" />
-      <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8">
-        <p class="text-lg leading-relaxed" style="max-width: 60ch">
-          Full-stack developer building across the stack, web front-ends and
-          back-ends in Java, C#, Python and Node.js, and cross-platform mobile
-          apps in Flutter and Dart. Currently a Junior Software Engineer at Coast
-          IT, completing a Software Engineer qualification (NQF 6) with CTU.
+      <hr class="ed-rule mt-10 mb-8" data-reveal />
+      <div class="grid grid-cols-1 md:grid-cols-[1.7fr_1fr] gap-8 md:gap-16 items-end">
+        <p class="text-lg md:text-xl leading-relaxed" style="max-width: 58ch" data-reveal>
+          I build across the stack, web front-ends and back-ends in Java, C#,
+          Python and Node.js, and cross-platform mobile apps in Flutter and Dart.
+          Currently a Junior Software Engineer at Coast IT.
         </p>
-        <div class="ed-mono text-xs" style="color: var(--muted)">
-          <div class="flex justify-between py-1"><span>STATUS</span><span style="color: var(--accent)">AVAILABLE</span></div>
-          <div class="flex justify-between py-1" style="border-top: 1px solid var(--border)"><span>WORK</span><span>FT / PT / CONTRACT</span></div>
-          <div class="flex justify-between py-1" style="border-top: 1px solid var(--border)"><span>FOCUS</span><span>WEB / MOBILE</span></div>
+        <div class="flex flex-wrap gap-3 md:justify-end" data-reveal>
+          <a href="#work" class="btn-primary magnetic" data-magnetic>View work</a>
+          <a href="#contact" class="btn-ghost magnetic" data-magnetic>Get in touch</a>
         </div>
       </div>
     </section>
+  </main>
+
+  <!-- Tech marquee -->
+  <section class="py-6 border-y" style="border-color: var(--border)" aria-hidden="true">
+    <div class="marquee">
+      <div class="marquee__track">
+        {stack.map(s => <span class="marquee__item">{s}</span>)}
+      </div>
+      <div class="marquee__track" aria-hidden="true">
+        {stack.map(s => <span class="marquee__item">{s}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <main class="container-wide">
 
     <!-- Profile / skills -->
-    <section id="profile" class="py-16 lg:py-24">
-      <div class="flex items-baseline gap-4 mb-10">
-        <span class="ed-num">02</span>
-        <h2 class="ed-huge" style="font-size: clamp(2rem, 6vw, 4rem)">Profile</h2>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8">
+    <section id="profile" class="py-20 lg:py-28">
+      <h2 class="ed-huge mb-12" style="font-size: clamp(2rem, 6vw, 4rem)" data-reveal>Profile</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
         {skills.map(group => (
-          <div>
+          <div data-reveal>
             <div class="ed-kicker mb-3 pb-2" style="border-bottom: 1px solid var(--border)">{group.k}</div>
             <ul class="ed-mono text-sm leading-8">
               {group.v.map(item => <li>{item}</li>)}
             </ul>
           </div>
         ))}
-        <div>
-          <div class="ed-kicker mb-3 pb-2" style="border-bottom: 1px solid var(--border)">Languages (spoken)</div>
-          <ul class="ed-mono text-sm leading-8"><li>English</li><li>Afrikaans</li></ul>
-        </div>
       </div>
     </section>
 
     <!-- Work index -->
-    <section id="work" class="py-16 lg:py-24">
-      <div class="flex items-baseline gap-4 mb-8">
-        <span class="ed-num">03</span>
-        <h2 class="ed-huge" style="font-size: clamp(2rem, 6vw, 4rem)">Selected Work</h2>
+    <section id="work" class="py-20 lg:py-28">
+      <div class="flex items-end justify-between mb-10 gap-4">
+        <h2 class="ed-huge" style="font-size: clamp(2rem, 6vw, 4rem)" data-reveal>Selected Work</h2>
+        <span class="ed-mono text-xs hidden sm:block" style="color: var(--muted)" data-reveal>2024 to 2026</span>
       </div>
       <div>
         {work.map(item => (
-          <a href={item.href} target="_blank" rel="noopener noreferrer" class="work-row group" data-ed-row>
+          <a href={item.href} target="_blank" rel="noopener noreferrer" class="work-row group" data-reveal>
             <span class="ed-num">{item.n}</span>
             <span>
               <span class="work-title block">{item.title}</span>
               <span class="ed-mono text-xs" style="color: var(--muted)">{item.meta}</span>
             </span>
-            <span class="flex flex-col items-end gap-2">
-              <span class="ed-mono text-xs" style="color: var(--muted)">{item.year} ↗</span>
-              <span class="hidden sm:flex flex-wrap gap-1.5 justify-end" style="max-width: 240px">
+            <span class="flex items-center gap-4">
+              <span class="hidden md:flex flex-wrap gap-1.5 justify-end" style="max-width: 220px">
                 {item.tags.map(t => <span class="ed-tag">{t}</span>)}
+              </span>
+              <span class="ed-mono text-xs hidden sm:inline" style="color: var(--muted)">{item.year}</span>
+              <span class="work-row__arrow" aria-hidden="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </span>
             </span>
           </a>
@@ -150,14 +157,11 @@ const certs = [
       </div>
     </section>
 
-    <!-- Record: experience + certs -->
-    <section id="record" class="py-16 lg:py-24">
-      <div class="flex items-baseline gap-4 mb-8">
-        <span class="ed-num">04</span>
-        <h2 class="ed-huge" style="font-size: clamp(2rem, 6vw, 4rem)">Record</h2>
-      </div>
+    <!-- Record -->
+    <section id="record" class="py-20 lg:py-28">
+      <h2 class="ed-huge mb-12" style="font-size: clamp(2rem, 6vw, 4rem)" data-reveal>Record</h2>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12">
-        <div>
+        <div data-reveal>
           <div class="ed-kicker mb-4">Experience &amp; Education</div>
           {record.map(r => (
             <div class="grid grid-cols-[5.5rem_1fr] gap-4 py-4" style="border-top: 1px solid var(--border)">
@@ -169,7 +173,7 @@ const certs = [
             </div>
           ))}
         </div>
-        <div>
+        <div data-reveal>
           <div class="ed-kicker mb-4">Certifications</div>
           {certs.map(c => (
             <div class="flex items-baseline justify-between gap-4 py-4" style="border-top: 1px solid var(--border)">
@@ -185,15 +189,12 @@ const certs = [
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="py-16 lg:py-28">
-      <div class="flex items-baseline gap-4 mb-8">
-        <span class="ed-num">05</span>
-        <h2 class="ed-huge" style="font-size: clamp(2rem, 6vw, 4rem)">Get in touch</h2>
-      </div>
-      <hr class="ed-rule-accent mb-10" />
+    <section id="contact" class="py-20 lg:py-28">
+      <h2 class="ed-huge mb-8" style="font-size: clamp(2rem, 6vw, 4rem)" data-reveal>Get in touch</h2>
+      <hr class="ed-rule-accent mb-12" data-reveal />
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20">
-        <div>
-          <p class="text-2xl md:text-3xl font-display font-bold leading-tight mb-8" style="max-width: 18ch">
+        <div data-reveal>
+          <p class="text-2xl md:text-4xl font-display font-bold leading-tight mb-10" style="max-width: 16ch">
             Open to freelance projects and job opportunities.
           </p>
           <div class="ed-mono text-sm flex flex-col gap-3">
@@ -202,7 +203,7 @@ const certs = [
             <a href="https://github.com/Ronan-R-R" target="_blank" rel="noopener noreferrer" class="ed-link w-fit">github.com/Ronan-R-R</a>
           </div>
         </div>
-        <div>
+        <div data-reveal>
           <ContactForm client:visible />
         </div>
       </div>
@@ -210,12 +211,21 @@ const certs = [
 
     <footer class="py-10 ed-mono text-xs flex flex-col sm:flex-row justify-between gap-3" style="border-top: 1px solid var(--border); color: var(--muted)">
       <span>© <span id="footer-year"></span> Ronan Roberts</span>
-      <span>Designed &amp; built by Ronan Roberts</span>
+      <span>Designed and built by Ronan Roberts</span>
     </footer>
   </main>
 
   <script>
     const el = document.getElementById('footer-year')
     if (el) el.textContent = String(new Date().getFullYear())
+
+    const open = document.getElementById('ed-menu-open')
+    const close = document.getElementById('ed-menu-close')
+    const panel = document.getElementById('ed-mobile')
+    open?.addEventListener('click', () => panel?.classList.add('open'))
+    close?.addEventListener('click', () => panel?.classList.remove('open'))
+    document.querySelectorAll('[data-ed-mclose]').forEach((a) =>
+      a.addEventListener('click', () => panel?.classList.remove('open'))
+    )
   </script>
 </Base>
