@@ -1,6 +1,5 @@
 ---
 import Base from '../layouts/Base.astro'
-import HeroScene from '../components/HeroScene.tsx'
 import ContactForm from '../components/ContactForm.tsx'
 import '../styles/global.css'
 
@@ -17,11 +16,11 @@ const skills = [
   { k: 'Web', v: ['HTML', 'CSS', 'Node.js', 'REST APIs'] },
   { k: 'Mobile', v: ['Flutter', 'Dart', 'Kivy'] },
   { k: 'Cloud / DB', v: ['Azure', 'Firebase'] },
-  { k: 'Tools', v: ['Git', 'CI/CD', 'pytest', 'Agile', 'Async / network'] },
+  { k: 'Tools', v: ['Git', 'CI/CD', 'pytest', 'Agile'] },
 ]
 
 const projects = [
-  { n: '01', title: 'FFP', desc: 'Fleet Failure Predictor - web dashboard, REST API, database, and an offline-first Flutter mobile app.', stack: ['Flutter', 'Dart', 'Firebase'], href: 'https://www.echosoftware.co.za/products/ffp' },
+  { n: '01', title: 'FFP', desc: 'Fleet Failure Predictor: web dashboard, REST API, database, and an offline-first Flutter mobile app.', stack: ['Flutter', 'Dart', 'Firebase'], href: 'https://www.echosoftware.co.za/products/ffp' },
   { n: '02', title: 'BruvTorrent', desc: 'A BitTorrent client built from scratch in Python with a PySide6 desktop UI.', stack: ['Python', 'asyncio', 'PySide6'], href: 'https://github.com/Ronan-R-R/BruvTorrent' },
   { n: '03', title: 'yt-mp3', desc: 'Cross-platform audio downloader for desktop and Android, built via GitHub Actions.', stack: ['Python', 'Kivy', 'ffmpeg'], href: 'https://github.com/Ronan-R-R/yt-mp3' },
   { n: '04', title: 'Echo Software', desc: 'Live company website for a Pretoria-based software studio.', stack: ['HTML', 'CSS', 'JS'], href: 'https://echosoftware.co.za' },
@@ -29,89 +28,94 @@ const projects = [
 ]
 
 const record = [
-  { year: '2026 -', role: 'Junior Software Engineer', org: 'Coast IT · Full-time' },
-  { year: '2025', role: 'Junior Software Engineer', org: 'Coast IT · Internship' },
+  { year: '2026 -', role: 'Junior Software Engineer', org: 'Coast IT, Full-time' },
+  { year: '2025', role: 'Junior Software Engineer', org: 'Coast IT, Internship' },
   { year: '2025', role: 'Intern', org: 'Open Vantage' },
-  { year: '2025 - 26', role: 'Freelance Web Developer', org: 'Self-employed' },
+  { year: '2025-26', role: 'Freelance Web Developer', org: 'Self-employed' },
   { year: '2023 -', role: 'Software Engineering (NQF 6)', org: 'CTU Training Solutions' },
   { year: '2021', role: 'National Senior Certificate', org: 'Bergsig Academy' },
 ]
 
 const certs = [
-  'Software Engineer NQF 6 - MICT SETA (2025)',
-  'IT Systems Development NQF 5 - MICT SETA (2024)',
-  'AI-900: Azure AI Fundamentals - Microsoft (2024)',
-  'IT Systems Development NQF 4 - MICT SETA (2023)',
-  'IT Specialist: JavaScript - Certiport (2023)',
-  'IT Specialist: HTML & CSS - Certiport (2023)',
+  'Software Engineer NQF 6, MICT SETA (2025)',
+  'IT Systems Development NQF 5, MICT SETA (2024)',
+  'AI-900: Azure AI Fundamentals, Microsoft (2024)',
+  'IT Systems Development NQF 4, MICT SETA (2023)',
+  'IT Specialist: JavaScript, Certiport (2023)',
+  'IT Specialist: HTML & CSS, Certiport (2023)',
 ]
 ---
 
 <Base>
-  <div class="h-brand"><a href="#p-intro">RR<span style="color: var(--accent)">.</span></a></div>
-  <nav class="h-nav">
-    {nav.map(item => <button data-target={item.id}>{item.label}</button>)}
-  </nav>
+  <header class="h-header">
+    <a class="h-brand" href="#p-intro" data-target="p-intro">RR<span style="color: var(--accent)">.</span></a>
+    <nav class="h-nav">
+      {nav.map(item => <button data-target={item.id}>{item.label}</button>)}
+    </nav>
+    <span class="h-pill"><i></i>Available</span>
+  </header>
 
   <div class="h-outer" id="h-outer">
     <div class="h-track" id="h-track">
 
       <!-- Intro -->
-      <section class="h-panel" id="p-intro">
-        <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 items-center w-full">
-          <div>
-            <div class="h-eyebrow">Full-stack Developer - Germiston, ZA</div>
-            <h1 class="h-title font-display font-bold">
-              Ronan<br /><span class="gradient-text">Roberts</span>
-            </h1>
-            <p class="mt-6 text-lg leading-relaxed" style="color: var(--muted); max-width: 46ch">
-              I build across the stack, web front-ends and back-ends in Java, C#,
-              Python and Node.js, and cross-platform mobile in Flutter and Dart.
-            </p>
-            <div class="mt-8 h-eyebrow" style="color: var(--muted)">Scroll to move sideways →</div>
-          </div>
-          <div class="hidden lg:block h-[440px]" aria-hidden="true">
-            <HeroScene client:only="react" />
+      <section class="h-panel" id="p-intro" data-label="Intro">
+        <div class="w-full" style="max-width: 1000px">
+          <div class="h-eyebrow" data-hr>Full-stack Developer, Germiston ZA</div>
+          <h1 class="h-title font-display font-bold" data-hr>
+            Ronan<br /><span style="color: var(--accent)">Roberts</span>
+          </h1>
+          <p class="mt-8 text-lg md:text-xl leading-relaxed" style="color: var(--muted); max-width: 48ch" data-hr>
+            I build across the stack, web front-ends and back-ends in Java, C#,
+            Python and Node.js, and cross-platform mobile in Flutter and Dart.
+          </p>
+          <div class="mt-10 flex flex-wrap gap-3" data-hr>
+            <button class="btn-primary" data-target="p-work">View work</button>
+            <button class="btn-ghost" data-target="p-contact">Get in touch</button>
           </div>
         </div>
       </section>
 
       <!-- About -->
-      <section class="h-panel" id="p-about">
-        <div class="h-eyebrow">01 - About</div>
-        <h2 class="font-display font-bold mb-6" style="font-size: clamp(1.8rem, 4vw, 3rem); max-width: 20ch">
-          I build the whole product, front to back.
-        </h2>
-        <p class="text-lg leading-relaxed mb-10" style="color: var(--muted); max-width: 60ch">
-          Completing a Software Engineer qualification (NQF 6) with CTU, backed by MICT SETA
-          and Microsoft certifications. Currently a Junior Software Engineer at Coast IT.
-          Open to full-time, part-time, contract, and freelance work.
-        </p>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6" style="max-width: 1100px">
-          {skills.map(g => (
-            <div>
-              <div class="h-eyebrow" style="color: var(--muted)">{g.k}</div>
-              <ul class="flex flex-col gap-1.5">
-                {g.v.map(s => <li class="text-sm" style="color: var(--text)">{s}</li>)}
-              </ul>
-            </div>
-          ))}
+      <section class="h-panel" id="p-about" data-label="About">
+        <div class="w-full" style="max-width: 1100px">
+          <h2 class="font-display font-bold mb-8" style="font-size: clamp(1.9rem, 4.4vw, 3.2rem); max-width: 20ch" data-hr>
+            I build the whole product, front to back.
+          </h2>
+          <p class="text-lg leading-relaxed mb-12" style="color: var(--muted); max-width: 62ch" data-hr>
+            Completing a Software Engineer qualification (NQF 6) with CTU, backed by MICT SETA
+            and Microsoft certifications. Currently a Junior Software Engineer at Coast IT.
+            Open to full-time, part-time, contract, and freelance work.
+          </p>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8" data-hr>
+            {skills.map(g => (
+              <div>
+                <div class="ed-mini mb-3 pb-2" style="border-bottom: 1px solid var(--border)">{g.k}</div>
+                <ul class="flex flex-col gap-1.5">
+                  {g.v.map(s => <li class="text-sm" style="color: var(--text)">{s}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       <!-- Work -->
-      <section class="h-panel h-panel--auto" id="p-work">
+      <section class="h-panel h-panel--auto" id="p-work" data-label="Work">
         <div class="h-cards">
-          <div class="flex flex-col justify-center pr-6" style="flex: 0 0 auto; max-width: 280px">
-            <div class="h-eyebrow">02 - Work</div>
-            <h2 class="font-display font-bold" style="font-size: clamp(2rem, 4vw, 3.4rem)">Selected<br />Work</h2>
-            <p class="mt-4 text-sm" style="color: var(--muted)">Five projects across web, mobile, and full-stack.</p>
+          <div class="flex flex-col justify-center pr-6" style="flex: 0 0 auto; max-width: 260px" data-hr>
+            <h2 class="font-display font-bold" style="font-size: clamp(2rem, 4vw, 3.2rem)">Selected Work</h2>
+            <p class="mt-4 text-sm" style="color: var(--muted)">Five projects across web, mobile, and full-stack. Scroll on.</p>
           </div>
           {projects.map(p => (
-            <a class="h-card" href={p.href} target="_blank" rel="noopener noreferrer">
-              <div class="preview-frame" style="height: 90px; border-radius: 10px; margin-bottom: auto; width: 100%"></div>
-              <span class="h-card__num">{p.n}</span>
-              <h3 class="font-display font-bold text-2xl">{p.title}</h3>
+            <a class="h-card" href={p.href} target="_blank" rel="noopener noreferrer" data-hr>
+              <div class="h-card__top">
+                <span class="h-card__num">{p.n}</span>
+                <span class="h-card__arrow" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+              </div>
+              <h3 class="h-card__title font-display font-bold text-2xl">{p.title}</h3>
               <p class="text-sm leading-relaxed" style="color: var(--muted)">{p.desc}</p>
               <div class="flex flex-wrap gap-2">{p.stack.map(s => <span class="stack-tag">{s}</span>)}</div>
             </a>
@@ -120,11 +124,10 @@ const certs = [
       </section>
 
       <!-- Record -->
-      <section class="h-panel" id="p-record">
-        <div class="h-eyebrow">03 - Record</div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-8 w-full" style="max-width: 1100px">
-          <div>
-            <h2 class="font-display font-bold mb-5" style="font-size: clamp(1.4rem, 3vw, 2rem)">Experience &amp; Education</h2>
+      <section class="h-panel" id="p-record" data-label="Record">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-10 w-full" style="max-width: 1100px">
+          <div data-hr>
+            <h2 class="font-display font-bold mb-6" style="font-size: clamp(1.6rem, 3.4vw, 2.4rem)">Experience &amp; Education</h2>
             {record.map(r => (
               <div class="grid grid-cols-[5.5rem_1fr] gap-4 py-3" style="border-top: 1px solid var(--border)">
                 <span class="text-xs font-semibold" style="color: var(--accent)">{r.year}</span>
@@ -132,8 +135,8 @@ const certs = [
               </div>
             ))}
           </div>
-          <div>
-            <h2 class="font-display font-bold mb-5" style="font-size: clamp(1.4rem, 3vw, 2rem)">Certifications</h2>
+          <div data-hr>
+            <h2 class="font-display font-bold mb-6" style="font-size: clamp(1.6rem, 3.4vw, 2.4rem)">Certifications</h2>
             {certs.map(c => (
               <div class="py-3 text-sm" style="border-top: 1px solid var(--border); color: var(--text)">{c}</div>
             ))}
@@ -142,11 +145,10 @@ const certs = [
       </section>
 
       <!-- Contact -->
-      <section class="h-panel" id="p-contact">
-        <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 w-full items-center">
-          <div>
-            <div class="h-eyebrow">04 - Contact</div>
-            <h2 class="font-display font-bold leading-tight mb-8" style="font-size: clamp(2rem, 5vw, 3.6rem); max-width: 14ch">
+      <section class="h-panel" id="p-contact" data-label="Contact">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 w-full items-center" style="max-width: 1100px">
+          <div data-hr>
+            <h2 class="font-display font-bold leading-tight mb-8" style="font-size: clamp(2.2rem, 5vw, 4rem); max-width: 12ch">
               Let's work together.
             </h2>
             <div class="flex flex-col gap-3 text-sm">
@@ -155,7 +157,7 @@ const certs = [
               <a href="https://github.com/Ronan-R-R" target="_blank" rel="noopener noreferrer" class="ide-link w-fit" style="font-family: var(--mono)">github.com/Ronan-R-R</a>
             </div>
           </div>
-          <div style="max-width: 520px; width: 100%">
+          <div style="max-width: 520px; width: 100%" data-hr>
             <ContactForm client:visible />
           </div>
         </div>
@@ -173,5 +175,6 @@ const certs = [
   <style>
     .ide-link { color: var(--accent); border-bottom: 1px solid rgba(var(--accent-rgb),0.4); }
     .ide-link:hover { border-bottom-color: var(--accent); }
+    .ed-mini { font-family: var(--mono, monospace); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
   </style>
 </Base>
