@@ -41,19 +41,19 @@ const projects = [
 ]
 
 const record = [
-  { year: '2026 —', role: 'Junior Software Engineer', org: 'Coast IT · Full-time' },
+  { year: '2026 -', role: 'Junior Software Engineer', org: 'Coast IT · Full-time' },
   { year: '2025', role: 'Junior Software Engineer', org: 'Coast IT · Internship' },
   { year: '2025', role: 'Intern', org: 'Open Vantage' },
-  { year: '2025 – 26', role: 'Freelance Web Developer', org: 'Self-employed' },
-  { year: '2023 —', role: 'Software Engineering (NQF 6)', org: 'CTU Training Solutions' },
+  { year: '2025 - 26', role: 'Freelance Web Developer', org: 'Self-employed' },
+  { year: '2023 -', role: 'Software Engineering (NQF 6)', org: 'CTU Training Solutions' },
 ]
 
 const certs = [
-  'Software Engineer NQF 6 — MICT SETA (2025)',
-  'IT Systems Development NQF 5 — MICT SETA (2024)',
-  'AI-900: Azure AI Fundamentals — Microsoft (2024)',
-  'IT Specialist: JavaScript — Certiport (2023)',
-  'IT Specialist: HTML & CSS — Certiport (2023)',
+  'Software Engineer NQF 6 - MICT SETA (2025)',
+  'IT Systems Development NQF 5 - MICT SETA (2024)',
+  'AI-900: Azure AI Fundamentals - Microsoft (2024)',
+  'IT Specialist: JavaScript - Certiport (2023)',
+  'IT Specialist: HTML & CSS - Certiport (2023)',
 ]
 
 function Content() {
@@ -61,7 +61,7 @@ function Content() {
     <div className="sp-content">
       <section className="sp-section sp-section--center" id="sp-0">
         <div>
-          <div className="sp-eyebrow">Full-stack Developer — Germiston, ZA</div>
+          <div className="sp-eyebrow">Full-stack Developer - Germiston, ZA</div>
           <h1 className="sp-title font-display font-bold">
             Ronan <span className="gradient-text">Roberts</span>
           </h1>
@@ -74,7 +74,7 @@ function Content() {
 
       <section className="sp-section" id="sp-1">
         <div className="sp-panel" style={{ maxWidth: '760px' }}>
-          <div className="sp-eyebrow">01 — About</div>
+          <div className="sp-eyebrow">01 - About</div>
           <h2 className="font-display font-bold" style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)', marginBottom: '1rem' }}>
             I build the whole product, front to back.
           </h2>
@@ -96,7 +96,7 @@ function Content() {
 
       <section className="sp-section" id="sp-2">
         <div className="sp-panel" style={{ maxWidth: '620px' }}>
-          <div className="sp-eyebrow">02 — Selected Work</div>
+          <div className="sp-eyebrow">02 - Selected Work</div>
           <div className="sp-work">
             {projects.map((p) => (
               <a className="sp-work-card" href={p.href} target="_blank" rel="noopener noreferrer" key={p.n}>
@@ -111,7 +111,7 @@ function Content() {
 
       <section className="sp-section" id="sp-3">
         <div className="sp-panel" style={{ maxWidth: '860px', width: '100%' }}>
-          <div className="sp-eyebrow">03 — Record</div>
+          <div className="sp-eyebrow">03 - Record</div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem' }}>
             <div>
               <h3 className="font-display font-bold" style={{ fontSize: '1.2rem', marginBottom: '0.8rem' }}>Experience &amp; Education</h3>
@@ -137,7 +137,7 @@ function Content() {
 
       <section className="sp-section" id="sp-4">
         <div className="sp-panel" style={{ maxWidth: '560px', width: '100%' }}>
-          <div className="sp-eyebrow">04 — Contact</div>
+          <div className="sp-eyebrow">04 - Contact</div>
           <h2 className="font-display font-bold" style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', marginBottom: '1.2rem' }}>
             Let&apos;s work together.
           </h2>
