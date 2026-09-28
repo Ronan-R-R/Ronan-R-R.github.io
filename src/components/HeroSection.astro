@@ -1,86 +1,109 @@
 ---
 import HeroScene from './HeroScene.tsx'
 
-const techTags = ['Java', 'C#', 'Python', 'Node.js', 'Dart', 'Flutter', 'Rust']
+const marquee = [
+  'Java', 'C#', 'Python', 'Node.js', 'Rust', 'JavaScript',
+  'Flutter', 'Dart', 'SQL', 'Azure', 'REST APIs', 'Git',
+]
 ---
 
-<section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+<section id="hero" class="relative min-h-screen flex flex-col justify-center pt-24 overflow-hidden">
 
-  <!-- Background radial aura -->
+  <!-- Background aura -->
   <div
     id="hero-aura"
     class="absolute pointer-events-none select-none"
     aria-hidden="true"
     style="
-      right: -5%;
-      top: 50%;
+      right: -8%;
+      top: 42%;
       transform: translateY(-50%);
-      width: min(700px, 80vw);
-      height: min(700px, 80vw);
+      width: min(760px, 88vw);
+      height: min(760px, 88vw);
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(124,92,255,0.14) 0%, rgba(124,92,255,0.03) 50%, transparent 70%);
+      background: radial-gradient(circle, rgba(var(--accent-rgb),0.16) 0%, rgba(var(--accent-rgb),0.04) 48%, transparent 70%);
     "
   ></div>
 
-  <div class="container w-full py-20 lg:py-28">
-    <div class="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-12 xl:gap-16 items-center">
+  <div class="container-wide w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 xl:gap-16 items-center">
 
       <!-- Text content -->
-      <div data-reveal>
-        <div class="section-tag">
-          <span class="inline-block w-6 h-px" style="background: var(--accent)"></span>
-          Software Engineer
+      <div>
+        <div class="section-tag" data-reveal>
+          <span class="eyebrow-line"></span>
+          Full-stack Developer
         </div>
 
-        <h1 class="font-display font-bold tracking-tight leading-[1.04] mb-6"
-          style="font-size: clamp(2.6rem, 6vw, 4.4rem)">
-          Full-stack.<br>
-          <span class="gradient-text">Every screen.</span>
+        <h1
+          class="font-display font-bold tracking-tight mb-7"
+          style="font-size: clamp(3rem, 8.5vw, 6.8rem); line-height: 0.98"
+          data-hero-title
+        >
+          <span class="hero-word">Full-stack.</span>
+          <span class="hero-word gradient-text">Every</span>
+          <span class="hero-word gradient-text">screen.</span>
         </h1>
 
-        <p class="mb-10 leading-relaxed max-w-[540px]" style="color: var(--muted); font-size: 1.1rem">
-          Full-stack developer based in Germiston. I build across the stack, web
-          front-ends and back-ends in Java, C#, Python and Node.js, and
-          cross-platform mobile apps in Flutter and Dart. Currently a Junior
-          Software Engineer at Coast IT and completing my Software Engineer
-          qualification (NQF 6) with CTU. Open to full-time, part-time, contract,
-          and freelance work.
+        <p
+          class="mb-9 leading-relaxed max-w-[560px]"
+          style="color: var(--muted); font-size: 1.12rem"
+          data-reveal
+        >
+          I build across the stack, web front-ends and back-ends in Java, C#,
+          Python and Node.js, and cross-platform mobile apps in Flutter and Dart.
+          Currently a Junior Software Engineer at Coast IT, completing my Software
+          Engineer qualification (NQF 6) with CTU.
         </p>
 
-        <div class="flex flex-wrap gap-4 mb-12">
+        <div class="flex flex-wrap items-center gap-4 mb-8" data-reveal>
           <a href="#projects" class="btn-primary" data-magnetic>View work</a>
           <a href="#contact" class="btn-ghost" data-magnetic>Get in touch</a>
         </div>
 
-        <!-- Tech tags -->
-        <div class="flex flex-wrap gap-2.5">
-          {techTags.map(tag => (
+        <div
+          class="inline-flex items-center gap-2.5 text-sm"
+          style="color: var(--muted)"
+          data-reveal
+        >
+          <span class="relative flex h-2.5 w-2.5">
             <span
-              class="px-3 py-1.5 rounded-full text-xs font-medium"
-              style="border: 1px solid var(--border); color: var(--muted); background: rgba(255,255,255,0.02)"
-            >
-              {tag}
-            </span>
-          ))}
+              class="absolute inline-flex h-full w-full rounded-full opacity-75"
+              style="background: var(--accent); animation: hero-ping 1.8s cubic-bezier(0,0,0.2,1) infinite"
+            ></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5" style="background: var(--accent)"></span>
+          </span>
+          Open to full-time, part-time, contract, and freelance work
         </div>
       </div>
 
-      <!-- 3D Scene -->
-      <div class="relative h-[420px] md:h-[520px] lg:h-[580px]" aria-hidden="true">
+      <!-- 3D scene -->
+      <div class="relative h-[380px] md:h-[520px] lg:h-[600px]" aria-hidden="true">
         <HeroScene client:only="react" />
       </div>
 
     </div>
   </div>
 
-  <!-- Scroll indicator -->
-  <div
-    class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-    aria-hidden="true"
-    style="color: var(--muted); opacity: 0.45"
-  >
-    <span class="text-[10px] font-semibold uppercase tracking-[0.2em]">Scroll</span>
-    <div class="w-px h-8" style="background: linear-gradient(to bottom, var(--muted), transparent)"></div>
+  <!-- Skills marquee -->
+  <div class="mt-16 lg:mt-20 py-5" style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border)">
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        {marquee.map(item => <span class="marquee__item">{item}</span>)}
+      </div>
+      <div class="marquee__track">
+        {marquee.map(item => <span class="marquee__item">{item}</span>)}
+      </div>
+    </div>
   </div>
 
 </section>
+
+<style>
+  @keyframes hero-ping {
+    75%, 100% { transform: scale(2.2); opacity: 0; }
+  }
+  .hero-word {
+    display: inline-block;
+  }
+</style>

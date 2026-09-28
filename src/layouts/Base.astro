@@ -6,7 +6,7 @@ interface Props {
 
 const {
   title = 'Ronan Roberts | Software Engineer',
-  description = 'Software Engineer based in Germiston, Gauteng. Specialising in full-stack web development and cross-platform mobile apps with Flutter and Dart.',
+  description = 'Full-stack developer based in Germiston, Gauteng. Web front-ends and back-ends in Java, C#, Python and Node.js, and cross-platform mobile apps in Flutter and Dart.',
 } = Astro.props
 ---
 
@@ -16,7 +16,7 @@ const {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
-  <meta name="theme-color" content="#08080D" />
+  <meta id="theme-color-meta" name="theme-color" content="#060810" />
 
   <title>{title}</title>
 
@@ -26,17 +26,34 @@ const {
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ronan-r-r.github.io" />
 
-  <!-- Favicon -->
-  <link
-    rel="icon"
-    type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237C5CFF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='16 18 22 12 16 6'%3E%3C/polyline%3E%3Cpolyline points='8 6 2 12 8 18'%3E%3C/polyline%3E%3C/svg%3E"
-  />
+  <link id="favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='16 18 22 12 16 6'/%3E%3Cpolyline points='8 6 2 12 8 18'/%3E%3C/svg%3E" />
 
   <slot name="head" />
 </head>
 <body>
+  <div id="scroll-progress" aria-hidden="true"></div>
   <slot />
+
+  <!-- Theme the favicon and browser chrome from the active colour tokens -->
+  <script is:inline>
+    (function () {
+      const root = getComputedStyle(document.documentElement)
+      const accent = root.getPropertyValue('--accent').trim() || '#22d3ee'
+      const bg = root.getPropertyValue('--bg').trim() || '#060810'
+      const meta = document.getElementById('theme-color-meta')
+      if (meta) meta.setAttribute('content', bg)
+      const fav = document.getElementById('favicon')
+      if (fav) {
+        const stroke = encodeURIComponent(accent)
+        fav.setAttribute(
+          'href',
+          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='" +
+            stroke +
+            "' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='16 18 22 12 16 6'/%3E%3Cpolyline points='8 6 2 12 8 18'/%3E%3C/svg%3E"
+        )
+      }
+    })()
+  </script>
 
   <script>
     import '../scripts/animations.ts'

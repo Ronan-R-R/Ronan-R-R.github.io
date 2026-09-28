@@ -1,82 +1,83 @@
 ---
-const cards = [
-  {
-    title: 'Languages',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
-    items: ['Java', 'C#', 'Python', 'JavaScript', 'Dart', 'Rust'],
-    span: 'lg:col-span-2',
-    accent: true,
-  },
-  {
-    title: 'Web',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
-    items: ['HTML', 'CSS', 'Node.js', 'REST APIs'],
-    span: '',
-    accent: false,
-  },
-  {
-    title: 'Mobile',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>`,
-    items: ['Flutter', 'Kivy'],
-    span: '',
-    accent: false,
-  },
-  {
-    title: 'Cloud & Databases',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>`,
-    items: ['Azure', 'Firebase', 'SQL'],
-    span: '',
-    accent: false,
-  },
-  {
-    title: 'Tools & Practices',
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
-    items: ['Git', 'CI/CD (GitHub Actions)', 'Unit testing (pytest)', 'Agile', 'Async & network programming'],
-    span: '',
-    accent: false,
-  },
+const stats = [
+  { value: 6, suffix: '', label: 'Certifications' },
+  { value: 5, suffix: '', label: 'Featured projects' },
+  { value: 14, suffix: '', label: 'Core technologies' },
+  { value: null, text: 'NQF 6', label: 'Qualification' },
+]
+
+const groups = [
+  { title: 'Languages', items: ['Java', 'C#', 'Python', 'JavaScript', 'SQL', 'Dart', 'Rust'] },
+  { title: 'Web', items: ['HTML', 'CSS', 'Node.js', 'REST APIs'] },
+  { title: 'Mobile', items: ['Flutter', 'Dart', 'Kivy'] },
+  { title: 'Cloud & Databases', items: ['Azure', 'Firebase'] },
+  { title: 'Tools & Practices', items: ['Git', 'CI/CD (GitHub Actions)', 'Unit testing (pytest)', 'Agile', 'Async & network programming'] },
 ]
 ---
 
 <section id="about" class="py-28 lg:py-36">
-  <div class="container">
+  <div class="container-wide">
 
-    <div class="mb-14" data-reveal>
-      <div class="section-tag">
-        <span class="inline-block w-6 h-px" style="background: var(--accent)"></span>
-        What I build
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_0.85fr] gap-14 lg:gap-20 items-start">
+
+      <!-- Statement -->
+      <div data-reveal>
+        <div class="section-tag">
+          <span class="eyebrow-line"></span>
+          About
+        </div>
+        <h2 class="h-display mb-6">
+          I build the whole product,<br class="hidden sm:block" />
+          <span class="gradient-text">front to back.</span>
+        </h2>
+        <p class="leading-relaxed mb-5" style="color: var(--muted); font-size: 1.08rem; max-width: 560px">
+          Full-stack developer based in Germiston. I work across web front-ends and
+          back-ends in Java, C#, Python and Node.js, and cross-platform mobile apps
+          in Flutter and Dart, from concept and UI through to database work and
+          deployment.
+        </p>
+        <p class="leading-relaxed" style="color: var(--muted); font-size: 1.08rem; max-width: 560px">
+          I'm completing a Software Engineer qualification (NQF 6) with CTU and hold
+          a range of MICT SETA and Microsoft certifications. Open to full-time,
+          part-time, contract, and freelance work.
+        </p>
       </div>
-      <h2 class="font-display font-bold tracking-tight" style="font-size: clamp(2rem, 4vw, 3rem)">
-        Technical Expertise
-      </h2>
-      <p class="mt-4 max-w-lg" style="color: var(--muted)">
-        From concept to deployment across web and mobile.
-      </p>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 gap-4" data-reveal-stagger>
+        {stats.map(stat => (
+          <div class="card p-6 flex flex-col gap-2">
+            <div class="stat__num">
+              {stat.value !== null ? (
+                <span data-count={stat.value}>0</span>
+              ) : (
+                <span>{stat.text}</span>
+              )}
+              {stat.suffix}
+            </div>
+            <p class="text-sm font-medium" style="color: var(--muted)">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" data-reveal-stagger>
-      {cards.map(card => (
-        <div
-          class={`card p-8 flex flex-col gap-5 ${card.span}`}
-          style={card.accent ? 'background: linear-gradient(135deg, rgba(124,92,255,0.08), rgba(167,139,250,0.04))' : ''}
-        >
-          <div
-            class="w-12 h-12 rounded-xl flex items-center justify-center"
-            style="background: rgba(124,92,255,0.12); color: var(--accent)"
-            aria-hidden="true"
-            set:html={card.icon}
-          />
-          <h3 class="font-display font-semibold text-xl">{card.title}</h3>
-          <ul class="space-y-2.5">
-            {card.items.map(item => (
-              <li class="flex items-start gap-3 text-sm" style="color: var(--muted)">
-                <span class="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style="background: var(--accent-2)"></span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+    <!-- Skill groups -->
+    <div class="mt-20 lg:mt-24">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-9" data-reveal-stagger>
+        {groups.map(group => (
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-[0.18em] mb-4" style="color: var(--accent)">
+              {group.title}
+            </h3>
+            <div class="flex flex-wrap gap-2.5">
+              {group.items.map(item => (
+                <span class="chip"><span class="chip__dot"></span>{item}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
 
   </div>

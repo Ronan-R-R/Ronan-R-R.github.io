@@ -9,11 +9,91 @@ interface Project {
   title: string
   tagline: string
   description: string
-  image: string
-  imageAlt: string
+  motif: string
   stack: string[]
   badge?: string
   links: ProjectLink[]
+}
+
+// Preview motifs use currentColor (--accent) and inline var(--accent-2) so they
+// theme with the active colour scheme. No external image assets.
+const motifs = {
+  ffp: `<svg viewBox="0 0 600 240" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" fill="none">
+    <g opacity="0.9">
+      <rect x="60" y="60" width="240" height="9" rx="4.5" fill="currentColor" opacity="0.75"/>
+      <rect x="60" y="60" width="150" height="9" rx="4.5" fill="var(--surface-2)"/>
+      <rect x="60" y="88" width="240" height="9" rx="4.5" style="fill:var(--accent-2)" opacity="0.5"/>
+      <rect x="60" y="116" width="240" height="9" rx="4.5" fill="currentColor" opacity="0.4"/>
+      <rect x="60" y="116" width="120" height="9" rx="4.5" fill="var(--surface-2)"/>
+      <rect x="350" y="52" width="92" height="60" rx="12" fill="var(--surface)" stroke="var(--border)"/>
+      <text x="396" y="80" font-family="system-ui" font-size="20" font-weight="700" fill="currentColor" text-anchor="middle">24</text>
+      <text x="396" y="99" font-family="system-ui" font-size="10" fill="var(--muted)" text-anchor="middle">Trucks</text>
+      <rect x="458" y="52" width="92" height="60" rx="12" fill="var(--surface)" stroke="var(--border)"/>
+      <text x="504" y="80" font-family="system-ui" font-size="20" font-weight="700" style="fill:var(--accent-2)" text-anchor="middle">98%</text>
+      <text x="504" y="99" font-family="system-ui" font-size="10" fill="var(--muted)" text-anchor="middle">Uptime</text>
+      <polyline points="60,190 130,168 200,178 270,150 340,158 410,128 480,140 540,110" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </svg>`,
+  bruv: `<svg viewBox="0 0 600 240" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" fill="none">
+    <g stroke="var(--border)" stroke-width="1.5">
+      <line x1="300" y1="70" x2="200" y2="130"/><line x1="300" y1="70" x2="410" y2="120"/>
+      <line x1="200" y1="130" x2="310" y2="185"/><line x1="410" y1="120" x2="310" y2="185"/>
+      <line x1="200" y1="130" x2="410" y2="120"/>
+    </g>
+    <g>
+      <circle cx="300" cy="70" r="12" fill="currentColor"/>
+      <circle cx="200" cy="130" r="9" style="fill:var(--accent-2)" opacity="0.8"/>
+      <circle cx="410" cy="120" r="9" style="fill:var(--accent-2)" opacity="0.8"/>
+      <circle cx="310" cy="185" r="8" fill="currentColor" opacity="0.55"/>
+    </g>
+    <rect x="60" y="200" width="480" height="9" rx="4.5" fill="var(--surface-2)"/>
+    <rect x="60" y="200" width="300" height="9" rx="4.5" fill="currentColor" opacity="0.85"/>
+  </svg>`,
+  ytmp3: `<svg viewBox="0 0 600 240" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" fill="none">
+    <g fill="currentColor">
+      <rect x="120" y="120" width="8" height="34" rx="4" opacity="0.5"/>
+      <rect x="140" y="96" width="8" height="82" rx="4" opacity="0.7"/>
+      <rect x="160" y="72" width="8" height="130" rx="4"/>
+      <rect x="180" y="104" width="8" height="66" rx="4" opacity="0.8"/>
+      <rect x="200" y="82" width="8" height="110" rx="4" style="fill:var(--accent-2)"/>
+      <rect x="220" y="118" width="8" height="38" rx="4" opacity="0.6"/>
+      <rect x="240" y="90" width="8" height="94" rx="4" opacity="0.8"/>
+      <rect x="260" y="112" width="8" height="50" rx="4" opacity="0.5"/>
+      <rect x="280" y="80" width="8" height="114" rx="4" style="fill:var(--accent-2)" opacity="0.85"/>
+      <rect x="300" y="122" width="8" height="30" rx="4" opacity="0.5"/>
+      <rect x="320" y="98" width="8" height="78" rx="4" opacity="0.7"/>
+      <rect x="340" y="110" width="8" height="54" rx="4" opacity="0.6"/>
+    </g>
+    <g stroke="var(--accent-2)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="440" y1="96" x2="440" y2="150"/>
+      <polyline points="420,132 440,152 460,132"/>
+      <line x1="414" y1="172" x2="466" y2="172"/>
+    </g>
+  </svg>`,
+  echo: `<svg viewBox="0 0 600 240" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" fill="none">
+    <rect x="70" y="52" width="460" height="150" rx="14" fill="var(--surface)" stroke="var(--border)"/>
+    <line x1="70" y1="82" x2="530" y2="82" stroke="var(--border)"/>
+    <circle cx="90" cy="67" r="4" fill="currentColor"/>
+    <circle cx="106" cy="67" r="4" style="fill:var(--accent-2)"/>
+    <circle cx="122" cy="67" r="4" fill="var(--muted)"/>
+    <rect x="94" y="104" width="120" height="10" rx="5" fill="currentColor" opacity="0.8"/>
+    <rect x="94" y="124" width="220" height="8" rx="4" fill="var(--surface-2)"/>
+    <rect x="94" y="140" width="180" height="8" rx="4" fill="var(--surface-2)"/>
+    <rect x="94" y="164" width="90" height="24" rx="12" style="fill:var(--accent-2)" opacity="0.85"/>
+    <rect x="360" y="104" width="150" height="84" rx="10" fill="var(--surface-2)"/>
+    <path d="M400 168 l28 -30 l22 22 l26 -34" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`,
+  sky: `<svg viewBox="0 0 600 240" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" fill="none">
+    <circle cx="250" cy="95" r="34" style="fill:var(--accent-2)" opacity="0.18"/>
+    <path d="M300 130 a26 26 0 0 0 -50 -6 a20 20 0 0 0 -38 6 a18 18 0 0 0 4 36 h78 a18 18 0 0 0 6 -36 z" fill="currentColor" opacity="0.85"/>
+    <g stroke="var(--accent-2)" stroke-width="3" stroke-linecap="round">
+      <line x1="240" y1="176" x2="234" y2="196"/>
+      <line x1="264" y1="176" x2="258" y2="196"/>
+      <line x1="288" y1="176" x2="282" y2="196"/>
+    </g>
+    <rect x="360" y="88" width="120" height="52" rx="14" fill="var(--surface)" stroke="var(--border)"/>
+    <text x="420" y="122" font-family="system-ui" font-size="26" font-weight="700" fill="currentColor" text-anchor="middle">22&#176;</text>
+  </svg>`,
 }
 
 const projects: Project[] = [
@@ -21,10 +101,9 @@ const projects: Project[] = [
     title: 'FFP',
     tagline: 'Fleet Failure Predictor',
     description:
-      'End-to-end fleet-management platform for trucking companies: web dashboard, REST API, database, and an offline-first Flutter mobile app with fuel-receipt OCR, trip tracking, and compliance monitoring.',
-    image: '/images/ffp.svg',
-    imageAlt: 'FFP fleet management platform',
-    stack: ['Flutter', 'Dart', 'Firebase'],
+      'End-to-end fleet-management platform for trucking companies: web dashboard, REST API, database, and an offline-first Flutter mobile app with fuel-receipt OCR, trip tracking, and compliance monitoring. Built as one of two developers across front-end, back-end, database, and mobile.',
+    motif: motifs.ffp,
+    stack: ['Flutter', 'Dart', 'Firebase', 'REST API'],
     badge: 'Login required',
     links: [
       { label: 'Live app', href: 'https://trucking-predict.web.app', icon: 'external' },
@@ -36,8 +115,7 @@ const projects: Project[] = [
     tagline: 'BitTorrent client from scratch',
     description:
       'A BitTorrent client built from scratch in Python with a PySide6 desktop UI, implementing the protocol by hand. Handles torrent files and magnet links, HTTP(S) and UDP trackers, seeding, resume with disk verification, and SHA-1 piece verification, backed by a pytest test suite.',
-    image: '/images/bruvtorrent.svg',
-    imageAlt: 'BruvTorrent BitTorrent client',
+    motif: motifs.bruv,
     stack: ['Python', 'asyncio', 'PySide6'],
     links: [
       { label: 'Source', href: 'https://github.com/Ronan-R-R/BruvTorrent', icon: 'github' },
@@ -48,8 +126,7 @@ const projects: Project[] = [
     tagline: 'Cross-platform audio downloader',
     description:
       'A local audio downloader for desktop (Windows, Linux) and Android. Bundles ffmpeg for MP3 conversion on desktop and uses Kivy for the Android build, with automated multi-platform builds via GitHub Actions.',
-    image: '/images/yt-mp3.svg',
-    imageAlt: 'yt-mp3 audio downloader',
+    motif: motifs.ytmp3,
     stack: ['Python', 'Kivy', 'GitHub Actions', 'ffmpeg'],
     links: [
       { label: 'Source', href: 'https://github.com/Ronan-R-R/yt-mp3', icon: 'github' },
@@ -60,8 +137,7 @@ const projects: Project[] = [
     tagline: 'Software studio website',
     description:
       'Live company website for Echo Software, a Pretoria-based software studio building custom digital products for clients.',
-    image: '/images/echo-software.svg',
-    imageAlt: 'Echo Software company website',
+    motif: motifs.echo,
     stack: ['HTML', 'CSS', 'JavaScript'],
     links: [
       { label: 'Visit site', href: 'https://echosoftware.co.za', icon: 'globe' },
@@ -72,8 +148,7 @@ const projects: Project[] = [
     tagline: 'Real-time weather dashboard',
     description:
       'Real-time weather dashboard with a 5-day forecast, interactive maps, and dynamic theming that shifts with live conditions.',
-    image: '/images/skycast.svg',
-    imageAlt: 'SkyCast weather dashboard',
+    motif: motifs.sky,
     stack: ['JavaScript', 'OpenWeatherMap API', 'Leaflet.js'],
     links: [
       { label: 'Live demo', href: 'https://ronan-r-r.github.io/SkyCast/', icon: 'globe' },
@@ -81,6 +156,8 @@ const projects: Project[] = [
     ],
   },
 ]
+
+const [featured, ...rest] = projects
 
 const icons = {
   globe: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
@@ -91,82 +168,70 @@ const icons = {
 ---
 
 <section id="projects" class="py-28 lg:py-36">
-  <div class="container">
+  <div class="container-wide">
 
     <div class="mb-14" data-reveal>
       <div class="section-tag">
-        <span class="inline-block w-6 h-px" style="background: var(--accent)"></span>
+        <span class="eyebrow-line"></span>
         Work
       </div>
-      <h2 class="font-display font-bold tracking-tight" style="font-size: clamp(2rem, 4vw, 3rem)">
-        Featured Projects
-      </h2>
+      <h2 class="h-display">Featured <span class="gradient-text">Projects</span></h2>
       <p class="mt-4 max-w-lg" style="color: var(--muted)">
         A selection of work across web, mobile, and full-stack engineering.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-      {projects.map(project => (
-        <article
-          class="card flex flex-col overflow-hidden"
-          data-tilt
-          style="will-change: transform"
-        >
-          <!-- Preview image -->
-          <div class="relative overflow-hidden" style="height: 210px; flex-shrink: 0">
-            <img
-              src={project.image}
-              alt={project.imageAlt}
-              width="600"
-              height="210"
-              loading="lazy"
-              decoding="async"
-              class="w-full h-full object-cover"
-            />
+    <!-- Featured project -->
+    <article
+      class="card grid grid-cols-1 lg:grid-cols-2 overflow-hidden mb-5"
+      data-reveal
+    >
+      <div class="preview-frame min-h-[240px] lg:min-h-[360px]" style="color: var(--accent)" set:html={featured.motif}></div>
+      <div class="flex flex-col p-8 lg:p-10 gap-5 justify-center">
+        <div class="flex items-center gap-3 flex-wrap">
+          <span class="text-xs font-semibold uppercase tracking-widest" style="color: var(--accent)">{featured.tagline}</span>
+          {featured.badge && (
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full" style="border: 1px solid var(--border); color: var(--muted)">{featured.badge}</span>
+          )}
+        </div>
+        <h3 class="font-display font-bold" style="font-size: clamp(1.8rem, 3vw, 2.4rem)">{featured.title}</h3>
+        <p class="leading-relaxed" style="color: var(--muted)">{featured.description}</p>
+        <div class="flex flex-wrap gap-2">
+          {featured.stack.map(tag => <span class="stack-tag">{tag}</span>)}
+        </div>
+        <div class="flex flex-wrap gap-5 pt-3" style="border-top: 1px solid var(--border)">
+          {featured.links.map(link => (
+            <a href={link.href} target="_blank" rel="noopener noreferrer" class="proj-link inline-flex items-center gap-1.5 text-sm font-semibold" style="color: var(--muted)">
+              <Fragment set:html={icons[link.icon]} />{link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <!-- Remaining projects -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {rest.map(project => (
+        <article class="card flex flex-col overflow-hidden" data-tilt style="will-change: transform">
+          <div class="preview-frame" style="height: 200px; flex-shrink: 0; color: var(--accent)">
+            <div set:html={project.motif}></div>
             {project.badge && (
-              <span
-                class="absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-full"
-                style="background: rgba(8,8,13,0.75); border: 1px solid var(--border); color: var(--muted); backdrop-filter: blur(8px)"
-              >
-                {project.badge}
-              </span>
+              <span class="absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-full" style="background: rgba(var(--bg-rgb),0.7); border: 1px solid var(--border); color: var(--muted); backdrop-filter: blur(8px)">{project.badge}</span>
             )}
           </div>
-
-          <!-- Content -->
           <div class="flex flex-col flex-1 p-6 gap-4">
             <div>
               <p class="text-xs font-semibold uppercase tracking-widest mb-1.5" style="color: var(--accent)">{project.tagline}</p>
               <h3 class="font-display font-bold text-xl">{project.title}</h3>
             </div>
-
             <p class="text-sm leading-relaxed flex-1" style="color: var(--muted)">{project.description}</p>
-
-            <!-- Stack tags -->
             <div class="flex flex-wrap gap-2">
-              {project.stack.map(tag => (
-                <span class="stack-tag">{tag}</span>
-              ))}
+              {project.stack.map(tag => <span class="stack-tag">{tag}</span>)}
             </div>
-
-            <!-- Links -->
-            <div
-              class="flex flex-wrap gap-4 pt-4"
-              style="border-top: 1px solid var(--border)"
-            >
+            <div class="flex flex-wrap gap-4 pt-4" style="border-top: 1px solid var(--border)">
               {project.links.map(link => (
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors"
-                  style="color: var(--muted)"
-                  onmouseover="this.style.color='var(--accent-2)'"
-                  onmouseout="this.style.color='var(--muted)'"
-                >
-                  <Fragment set:html={icons[link.icon]} />
-                  {link.label}
+                <a href={link.href} target="_blank" rel="noopener noreferrer" class="proj-link inline-flex items-center gap-1.5 text-sm font-semibold" style="color: var(--muted)">
+                  <Fragment set:html={icons[link.icon]} />{link.label}
                 </a>
               ))}
             </div>
@@ -177,3 +242,8 @@ const icons = {
 
   </div>
 </section>
+
+<style>
+  .proj-link { transition: color 0.2s; }
+  .proj-link:hover { color: var(--accent-2); }
+</style>

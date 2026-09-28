@@ -10,10 +10,36 @@ lenis.on('scroll', ScrollTrigger.update)
 gsap.ticker.add((time) => lenis.raf(time * 1000))
 gsap.ticker.lagSmoothing(0)
 
-// All motion behind reduced-motion gate
+// Scroll progress bar (no motion preference needed - purely informational)
+const progress = document.getElementById('scroll-progress')
+if (progress) {
+  const updateProgress = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight
+    const ratio = max > 0 ? window.scrollY / max : 0
+    progress.style.transform = `scaleX(${ratio})`
+  }
+  updateProgress()
+  window.addEventListener('scroll', updateProgress, { passive: true })
+  window.addEventListener('resize', updateProgress, { passive: true })
+}
+
+// All scroll motion behind reduced-motion gate
 const mm = gsap.matchMedia()
 
 mm.add('(prefers-reduced-motion: no-preference)', () => {
+  // Hero headline word stagger
+  const heroWords = gsap.utils.toArray<HTMLElement>('[data-hero-title] .hero-word')
+  if (heroWords.length) {
+    gsap.from(heroWords, {
+      yPercent: 115,
+      opacity: 0,
+      duration: 0.9,
+      ease: 'power3.out',
+      stagger: 0.09,
+      delay: 0.1,
+    })
+  }
+
   // Generic scroll-reveal elements
   gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
     gsap.from(el, {
@@ -21,11 +47,7 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
       opacity: 0,
       duration: 0.75,
       ease: 'power3.out',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 88%',
-        once: true,
-      },
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true },
     })
   })
 
@@ -38,42 +60,42 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
       duration: 0.65,
       ease: 'power2.out',
       stagger: 0.1,
-      scrollTrigger: {
-        trigger: container,
-        start: 'top 85%',
-        once: true,
-      },
+      scrollTrigger: { trigger: container, start: 'top 85%', once: true },
     })
   })
 
-  // Timeline: draw the vertical line as you scroll through the section
+  // Stat count-up
+  gsap.utils.toArray<HTMLElement>('[data-count]').forEach((el) => {
+    const target = Number(el.getAttribute('data-count')) || 0
+    const obj = { val: 0 }
+    gsap.to(obj, {
+      val: target,
+      duration: 1.6,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+      onUpdate: () => { el.textContent = String(Math.round(obj.val)) },
+    })
+  })
+
+  // Timeline: draw the vertical line as you scroll
   const timelineContainer = document.querySelector<HTMLElement>('.timeline-container')
   const timelineLine = document.querySelector<HTMLElement>('.timeline-line')
   if (timelineContainer && timelineLine) {
     gsap.from(timelineLine, {
       scaleY: 0,
       ease: 'none',
-      scrollTrigger: {
-        trigger: timelineContainer,
-        start: 'top 70%',
-        end: 'bottom 40%',
-        scrub: 0.5,
-      },
+      scrollTrigger: { trigger: timelineContainer, start: 'top 70%', end: 'bottom 40%', scrub: 0.5 },
     })
   }
 
-  // Timeline items slide in alternating sides
-  gsap.utils.toArray<HTMLElement>('[data-timeline-item]').forEach((el, i) => {
+  // Timeline items
+  gsap.utils.toArray<HTMLElement>('[data-timeline-item]').forEach((el) => {
     gsap.from(el, {
       x: -30,
       opacity: 0,
       duration: 0.6,
       ease: 'power2.out',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 88%',
-        once: true,
-      },
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true },
     })
   })
 
@@ -83,17 +105,12 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     gsap.to(aura, {
       y: -80,
       ease: 'none',
-      scrollTrigger: {
-        trigger: '#hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-      },
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true },
     })
   }
 })
 
-// Magnetic buttons - no motion preference needed (very subtle)
+// Magnetic buttons - subtle, no motion preference needed
 document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
   el.addEventListener('mousemove', (e: MouseEvent) => {
     const rect = el.getBoundingClientRect()
@@ -108,7 +125,7 @@ document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
   })
 })
 
-// 3D card tilt - only on devices with a precise pointer, not touch
+// 3D card tilt - precise pointer only
 if (!window.matchMedia('(pointer: coarse)').matches) {
   document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((card) => {
     card.addEventListener('mousemove', (e: MouseEvent) => {
@@ -125,16 +142,21 @@ if (!window.matchMedia('(pointer: coarse)').matches) {
   })
 }
 
-// Active nav link via IntersectionObserver
+// Active section state for both top nav and side dots
 const sections = document.querySelectorAll<HTMLElement>('section[id]')
 const navLinks = document.querySelectorAll<HTMLElement>('.nav-link')
+const dotLinks = document.querySelectorAll<HTMLElement>('.dot-link')
 
 const sectionObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
+        const id = entry.target.id
         navLinks.forEach((link) => {
-          link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`)
+          link.classList.toggle('active', link.getAttribute('href') === `#${id}`)
+        })
+        dotLinks.forEach((dot) => {
+          dot.classList.toggle('active', dot.getAttribute('data-dot') === id)
         })
       }
     })
