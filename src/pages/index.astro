@@ -1,23 +1,277 @@
 ---
 import Base from '../layouts/Base.astro'
-import Nav from '../components/Nav.astro'
-import HeroSection from '../components/HeroSection.astro'
-import ExpertiseSection from '../components/ExpertiseSection.astro'
-import TimelineSection from '../components/TimelineSection.astro'
-import ProjectsSection from '../components/ProjectsSection.astro'
-import ContactSection from '../components/ContactSection.astro'
-import Footer from '../components/Footer.astro'
+import HeroScene from '../components/HeroScene.tsx'
+import ContactForm from '../components/ContactForm.tsx'
 import '../styles/global.css'
+
+const files = [
+  { id: 'readme', name: 'README.md' },
+  { id: 'about', name: 'about.md' },
+  { id: 'projects', name: 'projects.json' },
+  { id: 'experience', name: 'experience.log' },
+  { id: 'contact', name: 'contact.sh' },
+]
+
+const skills = [
+  ['Languages', 'Java, C#, Python, JavaScript, SQL, Dart, Rust'],
+  ['Web', 'HTML, CSS, Node.js, REST APIs'],
+  ['Mobile', 'Flutter, Dart, Kivy'],
+  ['Cloud / DB', 'Azure, Firebase'],
+  ['Tools', 'Git, CI/CD (GitHub Actions), pytest, Agile, async & network'],
+]
+
+const projects = [
+  { name: 'FFP', desc: 'Fleet Failure Predictor — web dashboard, REST API, DB, offline-first Flutter app', stack: ['Flutter', 'Dart', 'Firebase', 'REST'], url: 'https://www.echosoftware.co.za/products/ffp', role: 'one of two developers, full-stack + mobile' },
+  { name: 'BruvTorrent', desc: 'BitTorrent client written from scratch with a PySide6 UI', stack: ['Python', 'asyncio', 'PySide6'], url: 'https://github.com/Ronan-R-R/BruvTorrent', role: 'protocol, trackers, seeding, SHA-1 verify' },
+  { name: 'yt-mp3', desc: 'Cross-platform audio downloader for desktop and Android', stack: ['Python', 'Kivy', 'ffmpeg'], url: 'https://github.com/Ronan-R-R/yt-mp3', role: 'multi-platform builds via GitHub Actions' },
+  { name: 'Echo Software', desc: 'Live company website for a Pretoria software studio', stack: ['HTML', 'CSS', 'JS'], url: 'https://echosoftware.co.za', role: 'front-end build' },
+  { name: 'SkyCast', desc: 'Real-time weather dashboard with maps and dynamic theming', stack: ['JavaScript', 'OWM API', 'Leaflet'], url: 'https://ronan-r-r.github.io/SkyCast/', role: '5-day forecast, interactive map' },
+]
+
+const log = [
+  { t: '2026-04', lvl: 'INFO', msg: 'Coast IT Pty (Ltd) — Junior Software Engineer (full-time), present' },
+  { t: '2025-10', lvl: 'INFO', msg: 'Coast IT Pty (Ltd) — Junior Software Engineer (internship)' },
+  { t: '2025-06', lvl: 'INFO', msg: 'Open Vantage — Intern (requirements, modeling)' },
+  { t: '2025', lvl: 'INFO', msg: 'Self-employed — Freelance Web Developer (2025-2026)' },
+  { t: '2023', lvl: 'EDU ', msg: 'CTU Training Solutions — Software Engineering (NQF 6), present' },
+  { t: '2021', lvl: 'EDU ', msg: 'Bergsig Academy — National Senior Certificate' },
+]
+
+const certs = [
+  'Software Engineer NQF 6 — MICT SETA (2025)',
+  'IT Systems Development NQF 5 — MICT SETA (2024)',
+  'AI-900: Azure AI Fundamentals — Microsoft (2024)',
+  'IT Systems Development NQF 4 — MICT SETA (2023)',
+  'IT Specialist: JavaScript — Certiport (2023)',
+  'IT Specialist: HTML & CSS — Certiport (2023)',
+]
 ---
 
 <Base>
-  <Nav />
-  <main>
-    <HeroSection />
-    <ExpertiseSection />
-    <TimelineSection />
-    <ProjectsSection />
-    <ContactSection />
-  </main>
-  <Footer />
+  <Fragment slot="head">
+    <script is:inline>document.documentElement.classList.add('ide-mode')</script>
+    <style>#scroll-progress{display:none}</style>
+  </Fragment>
+
+  <div class="ide">
+    <!-- Title bar + tabs -->
+    <div class="ide__title">
+      <div class="ide__dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="ide__tabs" id="tabs" role="tablist">
+        {files.map(f => (
+          <button class="ide-tab" data-file={f.id} role="tab"><span class="dot"></span>{f.name}</button>
+        ))}
+      </div>
+      <button class="ide__cmdk" id="cmdk-open" aria-label="Open command palette">Ctrl K</button>
+    </div>
+
+    <!-- Explorer -->
+    <aside class="ide__side">
+      <div class="ide__side-h">Explorer</div>
+      <div class="tree-folder">▾ ronan-roberts</div>
+      {files.map(f => (
+        <button class="tree-item" data-file={f.id}>
+          <span style="color: var(--accent)">›</span>{f.name}
+        </button>
+      ))}
+    </aside>
+
+    <!-- Main: editor + terminal -->
+    <div class="ide__main">
+      <div class="editor">
+        <div class="editor__inner">
+          <div class="gutter" id="gutter" aria-hidden="true"></div>
+          <div style="flex:1; min-width:0">
+
+            <!-- README.md -->
+            <div class="pane" data-pane="readme">
+              <div class="md-h1">Ronan Roberts</div>
+              <p class="md-p">Full-stack developer based in Germiston. I build across the stack, web front-ends and back-ends in Java, C#, Python and Node.js, and cross-platform mobile apps in Flutter and Dart.</p>
+              <p class="md-p">Currently a Junior Software Engineer at Coast IT, completing a Software Engineer qualification (NQF 6) with CTU. Open to full-time, part-time, contract, and freelance work.</p>
+              <div style="height: 220px; border: 1px solid var(--border); border-radius: 8px; margin: 1.2rem 0; overflow: hidden;" aria-hidden="true">
+                <HeroScene client:only="react" />
+              </div>
+              <p class="md-li">Open a file in the Explorer, or press <span class="tok-fn">Ctrl/Cmd + K</span></p>
+            </div>
+
+            <!-- about.md -->
+            <div class="pane" data-pane="about">
+              <div class="md-h1">About</div>
+              <p class="md-p">Full-stack developer working across web front-ends and back-ends in Java, C#, Python and Node.js, and cross-platform mobile apps in Flutter and Dart, from concept and UI through to database work and deployment.</p>
+              <p class="md-p">Completing a Software Engineer qualification (NQF 6) with CTU, backed by MICT SETA and Microsoft certifications. English and Afrikaans.</p>
+              <div class="md-h2">Skills</div>
+              {skills.map(([k, v]) => (
+                <p class="md-li"><span class="tok-key">{k}</span>: {v}</p>
+              ))}
+            </div>
+
+            <!-- projects.json -->
+            <div class="pane" data-pane="projects">
+              <div><span class="tok-com">// projects.json — {projects.length} entries</span></div>
+              <div>[</div>
+              {projects.map((p, i) => (
+                <div style="padding-left: 1.5rem; margin: 0.4rem 0;">
+                  <div>&#123;</div>
+                  <div style="padding-left: 1.5rem;">
+                    <div><span class="tok-key">"name"</span>: <span class="tok-str">"{p.name}"</span>,</div>
+                    <div><span class="tok-key">"summary"</span>: <span class="tok-str">"{p.desc}"</span>,</div>
+                    <div><span class="tok-key">"role"</span>: <span class="tok-str">"{p.role}"</span>,</div>
+                    <div><span class="tok-key">"stack"</span>: [{p.stack.map((s, j) => (<span><span class="tok-str">"{s}"</span>{j < p.stack.length - 1 ? ', ' : ''}</span>))}],</div>
+                    <div><span class="tok-key">"url"</span>: <a class="ide-link" href={p.url} target="_blank" rel="noopener noreferrer">"{p.url}"</a></div>
+                  </div>
+                  <div>&#125;{i < projects.length - 1 ? ',' : ''}</div>
+                </div>
+              ))}
+              <div>]</div>
+            </div>
+
+            <!-- experience.log -->
+            <div class="pane" data-pane="experience">
+              {log.map(l => (
+                <div class="md-p" style="margin-bottom: 0.35rem;">
+                  <span class="tok-com">[{l.t}]</span> <span class="tok-fn">{l.lvl}</span> {l.msg}
+                </div>
+              ))}
+              <div style="margin-top: 1.4rem;"><span class="tok-com">// certifications</span></div>
+              {certs.map(c => (
+                <div class="md-p" style="margin-bottom: 0.25rem;"><span class="tok-key">✓</span> {c}</div>
+              ))}
+            </div>
+
+            <!-- contact.sh -->
+            <div class="pane" data-pane="contact">
+              <div><span class="tok-com">#!/bin/sh</span></div>
+              <div><span class="tok-com"># reach out — open to freelance and full-time work</span></div>
+              <div style="margin: 0.6rem 0;"><span class="tok-fn">echo</span> <span class="tok-str">"email"</span>    <a class="ide-link" href="mailto:ronanr2003@gmail.com">ronanr2003@gmail.com</a></div>
+              <div style="margin: 0.3rem 0;"><span class="tok-fn">echo</span> <span class="tok-str">"linkedin"</span> <a class="ide-link" href="https://www.linkedin.com/in/rr-roberts/" target="_blank" rel="noopener noreferrer">linkedin.com/in/rr-roberts</a></div>
+              <div style="margin: 0.3rem 0;"><span class="tok-fn">echo</span> <span class="tok-str">"github"</span>   <a class="ide-link" href="https://github.com/Ronan-R-R" target="_blank" rel="noopener noreferrer">github.com/Ronan-R-R</a></div>
+              <div style="margin: 1.4rem 0 0.8rem;"><span class="tok-com"># or send a message:</span></div>
+              <div style="max-width: 520px;">
+                <ContactForm client:visible />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Terminal -->
+      <div class="term" id="term">
+        <div class="term__bar" aria-hidden="true"><span style="color: var(--accent)">●</span> TERMINAL</div>
+        <div id="term-body"></div>
+      </div>
+    </div>
+
+    <!-- Status bar -->
+    <div class="ide__status">
+      <span>⎇ main</span>
+      <span>UTF-8</span>
+      <span>Astro</span>
+      <span class="sep">● AVAILABLE FOR WORK</span>
+    </div>
+  </div>
+
+  <!-- Command palette -->
+  <div class="cmdk-overlay" id="cmdk" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="cmdk-box">
+      <input class="cmdk-input" id="cmdk-input" type="text" placeholder="Go to file…" autocomplete="off" spellcheck="false" />
+      <div class="cmdk-list" id="cmdk-list"></div>
+    </div>
+  </div>
+
+  <script define:vars={{ files }}>
+    const panes = document.querySelectorAll('.pane')
+    const tabs = document.querySelectorAll('.ide-tab')
+    const treeItems = document.querySelectorAll('.tree-item')
+    const gutter = document.getElementById('gutter')
+    const editor = document.querySelector('.editor')
+    const termBody = document.getElementById('term-body')
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    function setGutter() {
+      const active = document.querySelector('.pane.active')
+      if (!active || !gutter) return
+      const lh = 1.9 * parseFloat(getComputedStyle(active).fontSize)
+      const n = Math.max(30, Math.ceil(active.scrollHeight / lh) + 2)
+      gutter.innerHTML = Array.from({ length: n }, (_, i) => `<span>${i + 1}</span>`).join('')
+    }
+
+    function log(line) {
+      if (!termBody) return
+      const el = document.createElement('div')
+      el.className = 'term__line'
+      el.innerHTML = `<span class="term__prompt">ronan@portfolio</span>:~$ ${line}`
+      termBody.appendChild(el)
+      termBody.parentElement.scrollTop = termBody.parentElement.scrollHeight
+    }
+
+    function openFile(id, quiet) {
+      panes.forEach(p => p.classList.toggle('active', p.getAttribute('data-pane') === id))
+      tabs.forEach(t => t.classList.toggle('active', t.getAttribute('data-file') === id))
+      treeItems.forEach(t => t.classList.toggle('active', t.getAttribute('data-file') === id))
+      if (editor) editor.scrollTop = 0
+      const file = files.find(f => f.id === id)
+      if (file && !quiet) log('open ' + file.name)
+      setGutter()
+    }
+
+    tabs.forEach(t => t.addEventListener('click', () => openFile(t.getAttribute('data-file'))))
+    treeItems.forEach(t => t.addEventListener('click', () => openFile(t.getAttribute('data-file'))))
+    window.addEventListener('resize', setGutter)
+
+    // Command palette
+    const cmdk = document.getElementById('cmdk')
+    const cmdkInput = document.getElementById('cmdk-input')
+    const cmdkList = document.getElementById('cmdk-list')
+    let sel = 0
+
+    function renderList() {
+      const q = cmdkInput.value.toLowerCase()
+      const matches = files.filter(f => f.name.toLowerCase().includes(q))
+      sel = 0
+      cmdkList.innerHTML = matches.map((f, i) =>
+        `<div class="cmdk-item ${i === 0 ? 'sel' : ''}" data-file="${f.id}"><span style="color:var(--accent)">›</span>${f.name}</div>`
+      ).join('') || '<div class="cmdk-item">no matches</div>'
+      cmdkList.querySelectorAll('.cmdk-item[data-file]').forEach(item => {
+        item.addEventListener('click', () => { openFile(item.getAttribute('data-file')); closeCmdk() })
+      })
+    }
+    function openCmdk() { cmdk.classList.add('open'); cmdkInput.value = ''; renderList(); cmdkInput.focus() }
+    function closeCmdk() { cmdk.classList.remove('open') }
+    function moveSel(d) {
+      const items = cmdkList.querySelectorAll('.cmdk-item[data-file]')
+      if (!items.length) return
+      items[sel]?.classList.remove('sel')
+      sel = (sel + d + items.length) % items.length
+      items[sel].classList.add('sel')
+      items[sel].scrollIntoView({ block: 'nearest' })
+    }
+
+    document.getElementById('cmdk-open').addEventListener('click', openCmdk)
+    cmdkInput.addEventListener('input', renderList)
+    cmdk.addEventListener('click', e => { if (e.target === cmdk) closeCmdk() })
+    document.addEventListener('keydown', e => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); cmdk.classList.contains('open') ? closeCmdk() : openCmdk() }
+      if (!cmdk.classList.contains('open')) return
+      if (e.key === 'Escape') closeCmdk()
+      else if (e.key === 'ArrowDown') { e.preventDefault(); moveSel(1) }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); moveSel(-1) }
+      else if (e.key === 'Enter') {
+        const item = cmdkList.querySelectorAll('.cmdk-item[data-file]')[sel]
+        if (item) { openFile(item.getAttribute('data-file')); closeCmdk() }
+      }
+    })
+
+    // Boot
+    const boot = ['whoami  →  ronan roberts, full-stack developer', 'status  →  available for work', "type 'Ctrl/Cmd + K' to jump to a file"]
+    if (reduce) {
+      boot.forEach(log)
+      openFile('readme', true)
+    } else {
+      openFile('readme', true)
+      let i = 0
+      const tick = () => { if (i < boot.length) { log(boot[i++]); setTimeout(tick, 450) } }
+      setTimeout(tick, 350)
+    }
+  </script>
 </Base>
