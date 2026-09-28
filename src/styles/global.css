@@ -384,4 +384,78 @@
       radial-gradient(120% 120% at 75% 20%, rgba(var(--accent-rgb), 0.16), transparent 55%),
       linear-gradient(135deg, var(--surface), var(--surface-2));
   }
+
+  /* ===== Editorial / brutalist layout ===== */
+  .ed-mono {
+    font-family: ui-monospace, 'SF Mono', 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+  }
+  .ed-rule {
+    border: 0;
+    border-top: 1px solid var(--border);
+    width: 100%;
+  }
+  .ed-rule-accent {
+    border: 0;
+    border-top: 2px solid var(--accent);
+    width: 100%;
+  }
+  .ed-kicker {
+    @apply ed-mono text-xs uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+  .ed-num {
+    @apply ed-mono;
+    color: var(--accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+  .ed-huge {
+    @apply font-display font-bold;
+    line-height: 0.86;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+  .ed-outline {
+    -webkit-text-stroke: 1.5px var(--muted);
+    color: transparent;
+  }
+  .work-row {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 1.6rem 0;
+    border-top: 1px solid var(--border);
+    transition: padding-left 0.35s ease, background 0.35s ease;
+  }
+  .work-row:last-child { border-bottom: 1px solid var(--border); }
+  .work-row:hover {
+    padding-left: 1rem;
+    background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.06), transparent 60%);
+  }
+  .work-row:hover .work-title { color: var(--accent); }
+  .work-title {
+    @apply font-display font-bold;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    line-height: 1;
+    transition: color 0.25s ease;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+  .ed-tag {
+    @apply ed-mono text-xs;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .ed-link {
+    @apply ed-mono text-sm;
+    color: var(--text);
+    border-bottom: 1px solid var(--accent);
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .ed-link:hover { color: var(--accent); }
 }

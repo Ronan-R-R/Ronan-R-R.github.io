@@ -1,23 +1,221 @@
 ---
 import Base from '../layouts/Base.astro'
-import Nav from '../components/Nav.astro'
-import HeroSection from '../components/HeroSection.astro'
-import ExpertiseSection from '../components/ExpertiseSection.astro'
-import TimelineSection from '../components/TimelineSection.astro'
-import ProjectsSection from '../components/ProjectsSection.astro'
-import ContactSection from '../components/ContactSection.astro'
-import Footer from '../components/Footer.astro'
+import HeroScene from '../components/HeroScene.tsx'
+import ContactForm from '../components/ContactForm.tsx'
 import '../styles/global.css'
+
+const nav = [
+  { n: '01', label: 'Index', href: '#top' },
+  { n: '02', label: 'Profile', href: '#profile' },
+  { n: '03', label: 'Work', href: '#work' },
+  { n: '04', label: 'Record', href: '#record' },
+  { n: '05', label: 'Contact', href: '#contact' },
+]
+
+const skills = [
+  { k: 'Languages', v: ['Java', 'C#', 'Python', 'JavaScript', 'SQL', 'Dart', 'Rust'] },
+  { k: 'Web', v: ['HTML', 'CSS', 'Node.js', 'REST APIs'] },
+  { k: 'Mobile', v: ['Flutter', 'Dart', 'Kivy'] },
+  { k: 'Cloud / DB', v: ['Azure', 'Firebase'] },
+  { k: 'Tools', v: ['Git', 'CI/CD', 'pytest', 'Agile', 'Async / network'] },
+]
+
+const work = [
+  { n: '01', title: 'FFP', meta: 'Fleet Failure Predictor', tags: ['Flutter', 'Dart', 'Firebase', 'REST'], year: '2026', href: 'https://www.echosoftware.co.za/products/ffp' },
+  { n: '02', title: 'BruvTorrent', meta: 'BitTorrent client from scratch', tags: ['Python', 'asyncio', 'PySide6'], year: '2025', href: 'https://github.com/Ronan-R-R/BruvTorrent' },
+  { n: '03', title: 'yt-mp3', meta: 'Cross-platform audio downloader', tags: ['Python', 'Kivy', 'ffmpeg'], year: '2025', href: 'https://github.com/Ronan-R-R/yt-mp3' },
+  { n: '04', title: 'Echo Software', meta: 'Software studio website', tags: ['HTML', 'CSS', 'JS'], year: '2025', href: 'https://echosoftware.co.za' },
+  { n: '05', title: 'SkyCast', meta: 'Real-time weather dashboard', tags: ['JavaScript', 'OWM API', 'Leaflet'], year: '2024', href: 'https://ronan-r-r.github.io/SkyCast/' },
+]
+
+const record = [
+  { year: '2026 —', role: 'Junior Software Engineer', org: 'Coast IT Pty (Ltd) · Full-time' },
+  { year: '2025', role: 'Junior Software Engineer', org: 'Coast IT Pty (Ltd) · Internship' },
+  { year: '2025', role: 'Intern', org: 'Open Vantage' },
+  { year: '2025 – 26', role: 'Freelance Web Developer', org: 'Self-employed' },
+  { year: '2023 —', role: 'Software Engineering (NQF 6)', org: 'CTU Training Solutions, Boksburg' },
+  { year: '2021', role: 'National Senior Certificate', org: 'Bergsig Academy, Rustenburg' },
+]
+
+const certs = [
+  ['Software Engineer NQF 6', 'MICT SETA', '2025'],
+  ['IT Systems Development NQF 5', 'MICT SETA', '2024'],
+  ['AI-900: Azure AI Fundamentals', 'Microsoft', '2024'],
+  ['IT Systems Development NQF 4', 'MICT SETA', '2023'],
+  ['IT Specialist: JavaScript', 'Certiport', '2023'],
+  ['IT Specialist: HTML & CSS', 'Certiport', '2023'],
+]
 ---
 
 <Base>
-  <Nav />
-  <main>
-    <HeroSection />
-    <ExpertiseSection />
-    <TimelineSection />
-    <ProjectsSection />
-    <ContactSection />
+  <a id="top"></a>
+
+  <!-- Fixed index bar -->
+  <header id="site-header" class="fixed top-0 inset-x-0 z-50" style="background: rgba(var(--bg-rgb),0.85); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border)">
+    <div class="container-wide">
+      <div id="nav-inner" class="flex items-center justify-between h-16 transition-all duration-300">
+        <a href="#top" class="ed-mono font-bold tracking-tight">RR / ROBERTS</a>
+        <nav class="hidden md:flex items-center gap-6">
+          {nav.map(item => (
+            <a href={item.href} class="ed-mono text-xs uppercase tracking-widest nav-link">
+              <span style="color: var(--accent)">{item.n}</span> {item.label}
+            </a>
+          ))}
+        </nav>
+        <span class="ed-mono text-xs uppercase tracking-widest hidden sm:inline" style="color: var(--muted)">Germiston, ZA</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container-wide pt-24">
+
+    <!-- Masthead -->
+    <section class="pt-6 pb-16 lg:pb-24">
+      <div class="flex items-center justify-between ed-kicker mb-6">
+        <span>Full-stack Developer</span>
+        <span>Est. 2021 — Portfolio No.05</span>
+      </div>
+      <hr class="ed-rule-accent mb-8" />
+
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-end">
+        <h1 class="ed-huge" style="font-size: clamp(3.2rem, 13vw, 11rem)" data-ed-title>
+          <span class="block">Ronan</span>
+          <span class="block ed-outline">Roberts</span>
+        </h1>
+        <div class="hidden lg:block w-[260px] h-[260px] border" style="border-color: var(--border)" aria-hidden="true">
+          <HeroScene client:only="react" />
+        </div>
+      </div>
+
+      <hr class="ed-rule mt-8 mb-6" />
+      <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8">
+        <p class="text-lg leading-relaxed" style="max-width: 60ch">
+          Full-stack developer building across the stack, web front-ends and
+          back-ends in Java, C#, Python and Node.js, and cross-platform mobile
+          apps in Flutter and Dart. Currently a Junior Software Engineer at Coast
+          IT, completing a Software Engineer qualification (NQF 6) with CTU.
+        </p>
+        <div class="ed-mono text-xs" style="color: var(--muted)">
+          <div class="flex justify-between py-1"><span>STATUS</span><span style="color: var(--accent)">AVAILABLE</span></div>
+          <div class="flex justify-between py-1" style="border-top: 1px solid var(--border)"><span>WORK</span><span>FT / PT / CONTRACT</span></div>
+          <div class="flex justify-between py-1" style="border-top: 1px solid var(--border)"><span>FOCUS</span><span>WEB / MOBILE</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profile / skills -->
+    <section id="profile" class="py-16 lg:py-24">
+      <div class="flex items-baseline gap-4 mb-10">
+        <span class="ed-num">02</span>
+        <h2 class="ed-huge" style="font-size: clamp(2rem, 6vw, 4rem)">Profile</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8">
+        {skills.map(group => (
+          <div>
+            <div class="ed-kicker mb-3 pb-2" style="border-bottom: 1px solid var(--border)">{group.k}</div>
+            <ul class="ed-mono text-sm leading-8">
+              {group.v.map(item => <li>{item}</li>)}
+            </ul>
+          </div>
+        ))}
+        <div>
+          <div class="ed-kicker mb-3 pb-2" style="border-bottom: 1px solid var(--border)">Languages (spoken)</div>
+          <ul class="ed-mono text-sm leading-8"><li>English</li><li>Afrikaans</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work index -->
+    <section id="work" class="py-16 lg:py-24">
+      <div class="flex items-baseline gap-4 mb-8">
+        <span class="ed-num">03</span>
+        <h2 class="ed-huge" style="font-size: clamp(2rem, 6vw, 4rem)">Selected Work</h2>
+      </div>
+      <div>
+        {work.map(item => (
+          <a href={item.href} target="_blank" rel="noopener noreferrer" class="work-row group" data-ed-row>
+            <span class="ed-num">{item.n}</span>
+            <span>
+              <span class="work-title block">{item.title}</span>
+              <span class="ed-mono text-xs" style="color: var(--muted)">{item.meta}</span>
+            </span>
+            <span class="flex flex-col items-end gap-2">
+              <span class="ed-mono text-xs" style="color: var(--muted)">{item.year} ↗</span>
+              <span class="hidden sm:flex flex-wrap gap-1.5 justify-end" style="max-width: 240px">
+                {item.tags.map(t => <span class="ed-tag">{t}</span>)}
+              </span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Record: experience + certs -->
+    <section id="record" class="py-16 lg:py-24">
+      <div class="flex items-baseline gap-4 mb-8">
+        <span class="ed-num">04</span>
+        <h2 class="ed-huge" style="font-size: clamp(2rem, 6vw, 4rem)">Record</h2>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12">
+        <div>
+          <div class="ed-kicker mb-4">Experience &amp; Education</div>
+          {record.map(r => (
+            <div class="grid grid-cols-[5.5rem_1fr] gap-4 py-4" style="border-top: 1px solid var(--border)">
+              <span class="ed-mono text-xs" style="color: var(--accent)">{r.year}</span>
+              <span>
+                <span class="font-display font-bold block">{r.role}</span>
+                <span class="ed-mono text-xs" style="color: var(--muted)">{r.org}</span>
+              </span>
+            </div>
+          ))}
+        </div>
+        <div>
+          <div class="ed-kicker mb-4">Certifications</div>
+          {certs.map(c => (
+            <div class="flex items-baseline justify-between gap-4 py-4" style="border-top: 1px solid var(--border)">
+              <span>
+                <span class="font-display font-semibold block">{c[0]}</span>
+                <span class="ed-mono text-xs" style="color: var(--muted)">{c[1]}</span>
+              </span>
+              <span class="ed-mono text-xs" style="color: var(--accent)">{c[2]}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-16 lg:py-28">
+      <div class="flex items-baseline gap-4 mb-8">
+        <span class="ed-num">05</span>
+        <h2 class="ed-huge" style="font-size: clamp(2rem, 6vw, 4rem)">Get in touch</h2>
+      </div>
+      <hr class="ed-rule-accent mb-10" />
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20">
+        <div>
+          <p class="text-2xl md:text-3xl font-display font-bold leading-tight mb-8" style="max-width: 18ch">
+            Open to freelance projects and job opportunities.
+          </p>
+          <div class="ed-mono text-sm flex flex-col gap-3">
+            <a href="mailto:ronanr2003@gmail.com" class="ed-link w-fit">ronanr2003@gmail.com</a>
+            <a href="https://www.linkedin.com/in/rr-roberts/" target="_blank" rel="noopener noreferrer" class="ed-link w-fit">linkedin.com/in/rr-roberts</a>
+            <a href="https://github.com/Ronan-R-R" target="_blank" rel="noopener noreferrer" class="ed-link w-fit">github.com/Ronan-R-R</a>
+          </div>
+        </div>
+        <div>
+          <ContactForm client:visible />
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-10 ed-mono text-xs flex flex-col sm:flex-row justify-between gap-3" style="border-top: 1px solid var(--border); color: var(--muted)">
+      <span>© <span id="footer-year"></span> Ronan Roberts</span>
+      <span>Designed &amp; built by Ronan Roberts</span>
+    </footer>
   </main>
-  <Footer />
+
+  <script>
+    const el = document.getElementById('footer-year')
+    if (el) el.textContent = String(new Date().getFullYear())
+  </script>
 </Base>
