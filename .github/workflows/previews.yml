@@ -1,8 +1,8 @@
-name: Scheme previews
+name: Layout previews
 
 # Builds the current production site (main) at the root and hosts the four
-# redesign colour schemes under /preview/<scheme>/ so they can be compared side
-# by side. The live site at the root stays exactly as main produces it.
+# redesign layout paradigms under /preview/<name>/ so they can be compared
+# side by side. The live site at the root stays exactly as main produces it.
 
 on:
   push:
@@ -40,15 +40,15 @@ jobs:
           mkdir -p "$GITHUB_WORKSPACE/_site"
           cp -r dist/. "$GITHUB_WORKSPACE/_site/"
 
-      - name: Build scheme previews
+      - name: Build layout previews
         run: |
-          for s in cyan-ink ember light-editorial mono-lime; do
-            rm -rf scheme
-            git clone --depth 1 --branch "redesign/$s" \
-              "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" scheme
-            (cd scheme && npm ci && PREVIEW_BASE="/preview/$s/" npm run build)
-            mkdir -p "$GITHUB_WORKSPACE/_site/preview/$s"
-            cp -r scheme/dist/. "$GITHUB_WORKSPACE/_site/preview/$s/"
+          for name in spatial horizontal editorial terminal; do
+            rm -rf layout
+            git clone --depth 1 --branch "redesign/layout-$name" \
+              "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" layout
+            (cd layout && npm ci && PREVIEW_BASE="/preview/$name/" npm run build)
+            mkdir -p "$GITHUB_WORKSPACE/_site/preview/$name"
+            cp -r layout/dist/. "$GITHUB_WORKSPACE/_site/preview/$name/"
           done
 
       - uses: actions/upload-pages-artifact@v3
