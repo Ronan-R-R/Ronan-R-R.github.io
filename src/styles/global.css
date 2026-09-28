@@ -10,30 +10,30 @@
   the scheme branches. Every colour below flows from these tokens, so the
   design themes as a whole (dark or light) by editing this block alone.
 
-  Scheme: Cyan on ink
+  Scheme: Ember (warm charcoal + amber)
 */
 @layer base {
   :root {
-    --bg: #060810;
-    --bg-2: #0a0e1a;
-    --surface: #0e1220;
-    --surface-2: #161c2e;
-    --border: #24304a;
-    --text: #eaf2ff;
-    --muted: #8296b8;
-    --accent: #22d3ee;
-    --accent-2: #2dd4bf;
-    --on-accent: #04121a;
+    --bg: #0c0a08;
+    --bg-2: #120e0a;
+    --surface: #17130f;
+    --surface-2: #221b14;
+    --border: #352a1e;
+    --text: #f5eee6;
+    --muted: #a89684;
+    --accent: #ff8a3d;
+    --accent-2: #ffb347;
+    --on-accent: #1a0e04;
 
-    --bg-rgb: 6, 8, 16;
-    --accent-rgb: 34, 211, 238;
-    --accent-2-rgb: 45, 212, 191;
-    --text-rgb: 234, 242, 255;
+    --bg-rgb: 12, 10, 8;
+    --accent-rgb: 255, 138, 61;
+    --accent-2-rgb: 255, 179, 71;
+    --text-rgb: 245, 238, 230;
 
     --hairline: rgba(255, 255, 255, 0.025);
     --hairline-strong: rgba(255, 255, 255, 0.06);
-    --glow: rgba(34, 211, 238, 0.35);
-    --grain-opacity: 0.04;
+    --glow: rgba(255, 138, 61, 0.32);
+    --grain-opacity: 0.045;
   }
 
   *, *::before, *::after {
