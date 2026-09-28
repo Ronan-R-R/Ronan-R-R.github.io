@@ -1,10 +1,19 @@
 import { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { ScrollControls, Scroll, useScroll, Stars, Sparkles, Float, MeshDistortMaterial } from '@react-three/drei'
+import { ScrollControls, Scroll, useScroll, Stars, Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
 import ContactForm from './ContactForm'
+import Lenis from 'lenis'
 
 const PAGES = 5
+
+const sections = [
+  { i: 0, id: 'sp-0', label: 'Home' },
+  { i: 1, id: 'sp-1', label: 'About' },
+  { i: 2, id: 'sp-2', label: 'Work' },
+  { i: 3, id: 'sp-3', label: 'Record' },
+  { i: 4, id: 'sp-4', label: 'Contact' },
+]
 
 interface Palette {
   accent: string
@@ -56,29 +65,55 @@ const certs = [
   'IT Specialist: HTML & CSS - Certiport (2023)',
 ]
 
+const ArrowIcon = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+    <path d="M7 17L17 7M17 7H8M17 7V16" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+function Nav() {
+  return (
+    <header className="sp-header">
+      <button className="sp-brand-btn" data-sp="0" aria-label="Back to top">
+        RR<span style={{ color: 'var(--accent)' }}>.</span>
+      </button>
+      <nav className="sp-nav" aria-label="Sections">
+        {sections.slice(1).map((s) => (
+          <button className="sp-nav-link" data-sp={s.i} key={s.i}>{s.label}</button>
+        ))}
+      </nav>
+      <span className="sp-pill"><i />Available for work</span>
+    </header>
+  )
+}
+
 function Content() {
   return (
     <div className="sp-content">
       <section className="sp-section sp-section--center" id="sp-0">
-        <div>
-          <div className="sp-eyebrow">Full-stack Developer - Germiston, ZA</div>
+        <div className="sp-hero sp-reveal">
+          <p className="sp-kicker">Full-stack Developer, Germiston ZA</p>
           <h1 className="sp-title font-display font-bold">
-            Ronan <span className="gradient-text">Roberts</span>
+            Ronan <span style={{ color: 'var(--accent)' }}>Roberts</span>
           </h1>
-          <p style={{ color: 'var(--muted)', maxWidth: '48ch', margin: '1.4rem auto 0', fontSize: '1.05rem' }}>
+          <p className="sp-lede">
             I build across the stack: web front-ends and back-ends in Java, C#, Python and
             Node.js, and cross-platform mobile in Flutter and Dart.
           </p>
+          <div className="sp-hero-cta">
+            <button className="btn-primary sp-magnetic" data-sp="2">View work</button>
+            <button className="btn-ghost sp-magnetic" data-sp="4">Get in touch</button>
+          </div>
         </div>
       </section>
 
       <section className="sp-section" id="sp-1">
-        <div className="sp-panel" style={{ maxWidth: '760px' }}>
-          <div className="sp-eyebrow">01 - About</div>
-          <h2 className="font-display font-bold" style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)', marginBottom: '1rem' }}>
+        <div className="sp-panel sp-reveal" style={{ maxWidth: '760px' }}>
+          <p className="sp-kicker">About</p>
+          <h2 className="font-display font-bold" style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)', marginBottom: '1rem', lineHeight: 1.05 }}>
             I build the whole product, front to back.
           </h2>
-          <p style={{ color: 'var(--muted)', marginBottom: '1.8rem' }}>
+          <p style={{ color: 'var(--muted)', marginBottom: '1.8rem', maxWidth: '60ch' }}>
             Completing a Software Engineer qualification (NQF 6) with CTU, backed by MICT SETA and
             Microsoft certifications. Currently a Junior Software Engineer at Coast IT. Open to
             full-time, part-time, contract, and freelance work.
@@ -95,12 +130,15 @@ function Content() {
       </section>
 
       <section className="sp-section" id="sp-2">
-        <div className="sp-panel" style={{ maxWidth: '620px' }}>
-          <div className="sp-eyebrow">02 - Selected Work</div>
+        <div className="sp-panel sp-reveal" style={{ maxWidth: '640px', width: '100%' }}>
+          <p className="sp-kicker">Selected Work</p>
           <div className="sp-work">
             {projects.map((p) => (
               <a className="sp-work-card" href={p.href} target="_blank" rel="noopener noreferrer" key={p.n}>
-                <span className="num">{p.n}</span>
+                <div className="sp-work-top">
+                  <span className="num">{p.n}</span>
+                  <span className="sp-work-arrow"><ArrowIcon /></span>
+                </div>
                 <h3 className="font-display font-bold" style={{ fontSize: '1.25rem', margin: '0.2rem 0 0.3rem' }}>{p.title}</h3>
                 <p style={{ color: 'var(--muted)', fontSize: '0.88rem' }}>{p.desc}</p>
               </a>
@@ -110,8 +148,8 @@ function Content() {
       </section>
 
       <section className="sp-section" id="sp-3">
-        <div className="sp-panel" style={{ maxWidth: '860px', width: '100%' }}>
-          <div className="sp-eyebrow">03 - Record</div>
+        <div className="sp-panel sp-reveal" style={{ maxWidth: '860px', width: '100%' }}>
+          <p className="sp-kicker">Record</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem' }}>
             <div>
               <h3 className="font-display font-bold" style={{ fontSize: '1.2rem', marginBottom: '0.8rem' }}>Experience &amp; Education</h3>
@@ -136,9 +174,9 @@ function Content() {
       </section>
 
       <section className="sp-section" id="sp-4">
-        <div className="sp-panel" style={{ maxWidth: '560px', width: '100%' }}>
-          <div className="sp-eyebrow">04 - Contact</div>
-          <h2 className="font-display font-bold" style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', marginBottom: '1.2rem' }}>
+        <div className="sp-panel sp-reveal" style={{ maxWidth: '560px', width: '100%' }}>
+          <p className="sp-kicker">Contact</p>
+          <h2 className="font-display font-bold" style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', marginBottom: '1.2rem', lineHeight: 1.02 }}>
             Let&apos;s work together.
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginBottom: '1.6rem', fontFamily: 'var(--mono)', fontSize: '0.85rem' }}>
@@ -153,18 +191,21 @@ function Content() {
   )
 }
 
-function Crystal({ position, palette, seed }: { position: [number, number, number]; palette: Palette; seed: number }) {
+function Shard({ position, palette, seed }: { position: [number, number, number]; palette: Palette; seed: number }) {
   const ref = useRef<THREE.Mesh>(null)
   useFrame((state) => {
     if (!ref.current) return
     const t = state.clock.elapsedTime
-    ref.current.rotation.x = t * (0.1 + seed * 0.03)
-    ref.current.rotation.y = t * (0.14 + seed * 0.02)
+    ref.current.rotation.x = t * (0.1 + seed * 0.02)
+    ref.current.rotation.y = t * (0.13 + seed * 0.015)
   })
+  const geo = seed % 3
   return (
     <mesh ref={ref} position={position}>
-      <icosahedronGeometry args={[0.5 + (seed % 3) * 0.25, 0]} />
-      <meshBasicMaterial color={seed % 2 === 0 ? palette.accent : palette.accent2} wireframe transparent opacity={0.4} />
+      {geo === 0 && <icosahedronGeometry args={[0.5 + (seed % 4) * 0.18, 0]} />}
+      {geo === 1 && <octahedronGeometry args={[0.55 + (seed % 3) * 0.2, 0]} />}
+      {geo === 2 && <tetrahedronGeometry args={[0.6 + (seed % 3) * 0.22, 0]} />}
+      <meshBasicMaterial color={seed % 2 === 0 ? palette.accent : palette.accent2} wireframe transparent opacity={0.32} />
     </mesh>
   )
 }
@@ -172,90 +213,83 @@ function Crystal({ position, palette, seed }: { position: [number, number, numbe
 function Rig({ palette, mouseRef }: { palette: Palette; mouseRef: React.MutableRefObject<[number, number]> }) {
   const scroll = useScroll()
   const flyRef = useRef<THREE.Group>(null)
-  const coreRef = useRef<THREE.Mesh>(null)
   const isVisible = useRef(true)
-  const { camera, gl } = useThree()
+  const { camera } = useThree()
+  const navRef = useRef<HTMLElement[]>([])
+  const dotRef = useRef<HTMLElement[]>([])
+  const panelRef = useRef<HTMLElement[]>([])
 
   useEffect(() => {
     const onVis = () => { isVisible.current = document.visibilityState === 'visible' }
     document.addEventListener('visibilitychange', onVis)
 
-    // Wire nav dots + scroll hint to the drei scroll element
     const el = scroll.el
-    const dots = Array.from(document.querySelectorAll<HTMLButtonElement>('.sp-dot'))
-    const handlers: Array<() => void> = []
-    dots.forEach((dot, i) => {
-      const h = () => {
-        const top = (i / (PAGES - 1)) * (el.scrollHeight - el.clientHeight)
-        el.scrollTo({ top, behavior: 'smooth' })
-      }
-      dot.addEventListener('click', h)
-      handlers.push(() => dot.removeEventListener('click', h))
+    const jump = (i: number) => {
+      const top = (i / (PAGES - 1)) * (el.scrollHeight - el.clientHeight)
+      el.scrollTo({ top, behavior: 'smooth' })
+    }
+    const jumpers = Array.from(document.querySelectorAll<HTMLElement>('[data-sp]'))
+    const cleanups = jumpers.map((node) => {
+      const i = Number(node.dataset.sp)
+      const h = () => jump(i)
+      node.addEventListener('click', h)
+      return () => node.removeEventListener('click', h)
     })
+
+    navRef.current = Array.from(document.querySelectorAll<HTMLElement>('.sp-nav-link'))
+    dotRef.current = Array.from(document.querySelectorAll<HTMLElement>('.sp-dot'))
+    panelRef.current = Array.from(document.querySelectorAll<HTMLElement>('.sp-reveal'))
 
     return () => {
       document.removeEventListener('visibilitychange', onVis)
-      handlers.forEach((fn) => fn())
+      cleanups.forEach((fn) => fn())
     }
-  }, [scroll, gl])
+  }, [scroll])
 
-  const crystals = useRef(
-    Array.from({ length: 14 }).map((_, i) => ({
+  const shards = useRef(
+    Array.from({ length: 22 }).map((_, i) => ({
       pos: [
-        (Math.random() - 0.5) * 14,
-        (Math.random() - 0.5) * 10,
-        -4 - Math.random() * 60,
+        (Math.random() - 0.5) * 16,
+        (Math.random() - 0.5) * 11,
+        -3 - Math.random() * 62,
       ] as [number, number, number],
       seed: i,
     }))
   )
-
-  const dotsRef = useRef<HTMLButtonElement[]>([])
-  const hintRef = useRef<HTMLElement | null>(null)
-  useEffect(() => {
-    dotsRef.current = Array.from(document.querySelectorAll<HTMLButtonElement>('.sp-dot'))
-    hintRef.current = document.querySelector<HTMLElement>('.sp-hint')
-  }, [])
 
   useFrame((state) => {
     if (!isVisible.current) return
     const o = scroll.offset
     const t = state.clock.elapsedTime
 
-    if (flyRef.current) flyRef.current.position.z = o * 66
-
-    if (coreRef.current) {
-      coreRef.current.rotation.x = t * 0.08
-      coreRef.current.rotation.y = t * 0.12
-      coreRef.current.position.z = -2 + o * 66
+    if (flyRef.current) {
+      flyRef.current.position.z = o * 66
+      flyRef.current.rotation.z = Math.sin(t * 0.05) * 0.06
     }
 
-    // Camera parallax from pointer
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, mouseRef.current[0] * 0.6, 0.04)
-    camera.position.y = THREE.MathUtils.lerp(camera.position.y, mouseRef.current[1] * 0.6, 0.04)
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, mouseRef.current[0] * 0.7, 0.045)
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, mouseRef.current[1] * 0.7, 0.045)
+    camera.rotation.z = THREE.MathUtils.lerp(camera.rotation.z, mouseRef.current[0] * -0.03, 0.04)
     camera.lookAt(0, 0, camera.position.z - 5)
 
-    // Active dot + hint fade (DOM writes, no React state churn)
     const active = Math.min(PAGES - 1, Math.round(o * (PAGES - 1)))
-    dotsRef.current.forEach((d, i) => d.classList.toggle('active', i === active))
-    if (hintRef.current) hintRef.current.style.opacity = o > 0.02 ? '0' : '1'
+    navRef.current.forEach((n) => n.classList.toggle('active', Number(n.dataset.sp) === active))
+    dotRef.current.forEach((d, i) => d.classList.toggle('active', i === active))
+    panelRef.current.forEach((p, i) => {
+      if (o >= i / PAGES - 0.12) p.classList.add('is-in')
+    })
   })
 
   return (
     <>
-      <Stars radius={80} depth={50} count={1400} factor={3} saturation={0} fade speed={0.6} />
+      <Stars radius={80} depth={50} count={1600} factor={3} saturation={0} fade speed={0.7} />
       <group ref={flyRef}>
-        {crystals.current.map((c, i) => (
-          <Crystal key={i} position={c.pos} palette={palette} seed={c.seed} />
+        {shards.current.map((c, i) => (
+          <Shard key={i} position={c.pos} palette={palette} seed={c.seed} />
         ))}
       </group>
-      <Float speed={1.4} rotationIntensity={0.3} floatIntensity={0.5}>
-        <mesh ref={coreRef} position={[0, 0, -2]}>
-          <icosahedronGeometry args={[1.4, 5]} />
-          <MeshDistortMaterial color={palette.accent} distort={0.42} speed={2} roughness={0.08} metalness={0.2} transparent opacity={0.92} />
-        </mesh>
-      </Float>
-      <Sparkles count={120} size={1.4} scale={16} color={palette.accent2} speed={0.3} opacity={0.5} />
+      <Sparkles count={140} size={1.4} scale={18} color={palette.accent2} speed={0.32} opacity={0.5} />
+      <Sparkles count={70} size={2.2} scale={12} color={palette.accent} speed={0.2} opacity={0.35} />
     </>
   )
 }
@@ -263,13 +297,12 @@ function Rig({ palette, mouseRef }: { palette: Palette; mouseRef: React.MutableR
 function Overlays() {
   return (
     <>
-      <div className="sp-brand">RR<span style={{ color: 'var(--accent)' }}>.</span></div>
+      <Nav />
       <div className="sp-dots" aria-label="Section navigation">
-        {Array.from({ length: PAGES }).map((_, i) => (
-          <button className={'sp-dot' + (i === 0 ? ' active' : '')} key={i} aria-label={`Go to section ${i + 1}`} />
+        {sections.map((s) => (
+          <button className={'sp-dot' + (s.i === 0 ? ' active' : '')} data-sp={s.i} key={s.i} aria-label={`Go to ${s.label}`} />
         ))}
       </div>
-      <div className="sp-hint">Scroll to explore</div>
     </>
   )
 }
@@ -318,10 +351,94 @@ export default function SpatialScene() {
     return () => { root.classList.remove('spatial-fallback') }
   }, [])
 
+  // Fallback path: smooth scroll, anchor nav, scroll reveals
+  useEffect(() => {
+    if (mode !== 'fallback') return
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    let lenis: Lenis | null = null
+    let rafId = 0
+    if (!reduced) {
+      lenis = new Lenis({ duration: 1.05 })
+      const raf = (time: number) => { lenis?.raf(time); rafId = requestAnimationFrame(raf) }
+      rafId = requestAnimationFrame(raf)
+    }
+
+    const jump = (i: number) => {
+      const target = document.getElementById('sp-' + i)
+      if (!target) return
+      if (lenis) lenis.scrollTo(target, { offset: -72 })
+      else target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' })
+    }
+    const jumpers = Array.from(document.querySelectorAll<HTMLElement>('[data-sp]'))
+    const cleanups = jumpers.map((node) => {
+      const i = Number(node.dataset.sp)
+      const h = () => jump(i)
+      node.addEventListener('click', h)
+      return () => node.removeEventListener('click', h)
+    })
+
+    const navLinks = Array.from(document.querySelectorAll<HTMLElement>('.sp-nav-link'))
+    const secEls = sections.map((s) => document.getElementById(s.id)).filter(Boolean) as HTMLElement[]
+    const active = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return
+          const idx = secEls.indexOf(e.target as HTMLElement)
+          navLinks.forEach((n) => n.classList.toggle('active', Number(n.dataset.sp) === idx))
+        })
+      },
+      { rootMargin: '-45% 0px -45% 0px' }
+    )
+    secEls.forEach((el) => active.observe(el))
+
+    const reveals = Array.from(document.querySelectorAll<HTMLElement>('.sp-reveal'))
+    const revObs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); revObs.unobserve(e.target) } }),
+      { rootMargin: '0px 0px -12% 0px' }
+    )
+    reveals.forEach((el) => revObs.observe(el))
+
+    return () => {
+      cleanups.forEach((fn) => fn())
+      active.disconnect()
+      revObs.disconnect()
+      if (rafId) cancelAnimationFrame(rafId)
+      lenis?.destroy()
+    }
+  }, [mode])
+
+  // Magnetic buttons (both 3D and fallback), pointer-fine only
+  useEffect(() => {
+    if (mode === 'loading') return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!window.matchMedia('(pointer: fine)').matches) return
+
+    const strength = 0.28
+    const nodes = Array.from(document.querySelectorAll<HTMLElement>('.sp-magnetic'))
+    const cleanups = nodes.map((el) => {
+      const move = (e: MouseEvent) => {
+        const r = el.getBoundingClientRect()
+        const x = (e.clientX - (r.left + r.width / 2)) * strength
+        const y = (e.clientY - (r.top + r.height / 2)) * strength
+        el.style.transform = `translate(${x}px, ${y}px)`
+      }
+      const reset = () => { el.style.transform = '' }
+      el.addEventListener('mousemove', move)
+      el.addEventListener('mouseleave', reset)
+      return () => {
+        el.removeEventListener('mousemove', move)
+        el.removeEventListener('mouseleave', reset)
+        el.style.transform = ''
+      }
+    })
+    return () => cleanups.forEach((fn) => fn())
+  }, [mode])
+
   if (mode === 'fallback') {
     return (
       <div className="spatial-root">
-        <div className="sp-brand">RR<span style={{ color: 'var(--accent)' }}>.</span></div>
+        <Nav />
         <Content />
       </div>
     )
