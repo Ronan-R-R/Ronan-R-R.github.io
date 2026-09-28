@@ -42,7 +42,7 @@ jobs:
 
       - name: Build layout previews
         run: |
-          for name in spatial horizontal editorial terminal; do
+          for name in spatial horizontal editorial; do
             rm -rf layout
             git clone --depth 1 --branch "redesign/layout-$name" \
               "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" layout
