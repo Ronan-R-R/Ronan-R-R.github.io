@@ -12,7 +12,7 @@ const panels = gsap.utils.toArray<HTMLElement>('.h-panel')
 const bar = document.getElementById('h-bar')
 const cur = document.getElementById('h-cur')
 const label = document.getElementById('h-label')
-const labels = panels.map((p) => p.querySelector('.h-eyebrow')?.textContent?.split('—').pop()?.trim() || p.id)
+const labels = panels.map((p) => p.querySelector('.h-eyebrow')?.textContent?.split('-').pop()?.trim() || p.id)
 
 const mm = gsap.matchMedia()
 
