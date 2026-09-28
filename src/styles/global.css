@@ -10,30 +10,30 @@
   the scheme branches. Every colour below flows from these tokens, so the
   design themes as a whole (dark or light) by editing this block alone.
 
-  Scheme: Cyan on ink
+  Scheme: Light editorial (bone + cobalt)
 */
 @layer base {
   :root {
-    --bg: #060810;
-    --bg-2: #0a0e1a;
-    --surface: #0e1220;
-    --surface-2: #161c2e;
-    --border: #24304a;
-    --text: #eaf2ff;
-    --muted: #8296b8;
-    --accent: #22d3ee;
-    --accent-2: #2dd4bf;
-    --on-accent: #04121a;
+    --bg: #f6f4ef;
+    --bg-2: #eeebe3;
+    --surface: #ffffff;
+    --surface-2: #f3f1ea;
+    --border: #e0dbd0;
+    --text: #16151a;
+    --muted: #6a6558;
+    --accent: #1b4dff;
+    --accent-2: #5b7cff;
+    --on-accent: #ffffff;
 
-    --bg-rgb: 6, 8, 16;
-    --accent-rgb: 34, 211, 238;
-    --accent-2-rgb: 45, 212, 191;
-    --text-rgb: 234, 242, 255;
+    --bg-rgb: 246, 244, 239;
+    --accent-rgb: 27, 77, 255;
+    --accent-2-rgb: 91, 124, 255;
+    --text-rgb: 22, 21, 26;
 
-    --hairline: rgba(255, 255, 255, 0.025);
-    --hairline-strong: rgba(255, 255, 255, 0.06);
-    --glow: rgba(34, 211, 238, 0.35);
-    --grain-opacity: 0.04;
+    --hairline: rgba(0, 0, 0, 0.03);
+    --hairline-strong: rgba(0, 0, 0, 0.07);
+    --glow: rgba(27, 77, 255, 0.2);
+    --grain-opacity: 0.02;
   }
 
   *, *::before, *::after {
