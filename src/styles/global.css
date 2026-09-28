@@ -10,30 +10,30 @@
   the scheme branches. Every colour below flows from these tokens, so the
   design themes as a whole (dark or light) by editing this block alone.
 
-  Scheme: Cyan on ink
+  Scheme: Mono + lime (grayscale + one bold accent)
 */
 @layer base {
   :root {
-    --bg: #060810;
-    --bg-2: #0a0e1a;
-    --surface: #0e1220;
-    --surface-2: #161c2e;
-    --border: #24304a;
-    --text: #eaf2ff;
-    --muted: #8296b8;
-    --accent: #22d3ee;
-    --accent-2: #2dd4bf;
-    --on-accent: #04121a;
+    --bg: #0a0a0b;
+    --bg-2: #0f0f11;
+    --surface: #141416;
+    --surface-2: #1e1e21;
+    --border: #2e2e33;
+    --text: #f4f4f5;
+    --muted: #9a9aa2;
+    --accent: #c6f24e;
+    --accent-2: #a3e635;
+    --on-accent: #12160a;
 
-    --bg-rgb: 6, 8, 16;
-    --accent-rgb: 34, 211, 238;
-    --accent-2-rgb: 45, 212, 191;
-    --text-rgb: 234, 242, 255;
+    --bg-rgb: 10, 10, 11;
+    --accent-rgb: 198, 242, 78;
+    --accent-2-rgb: 163, 230, 53;
+    --text-rgb: 244, 244, 245;
 
     --hairline: rgba(255, 255, 255, 0.025);
     --hairline-strong: rgba(255, 255, 255, 0.06);
-    --glow: rgba(34, 211, 238, 0.35);
-    --grain-opacity: 0.04;
+    --glow: rgba(198, 242, 78, 0.3);
+    --grain-opacity: 0.045;
   }
 
   *, *::before, *::after {
