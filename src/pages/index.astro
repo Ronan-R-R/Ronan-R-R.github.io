@@ -1,23 +1,273 @@
 ---
 import Base from '../layouts/Base.astro'
-import Nav from '../components/Nav.astro'
-import HeroSection from '../components/HeroSection.astro'
-import ExpertiseSection from '../components/ExpertiseSection.astro'
-import TimelineSection from '../components/TimelineSection.astro'
-import ProjectsSection from '../components/ProjectsSection.astro'
-import ContactSection from '../components/ContactSection.astro'
-import Footer from '../components/Footer.astro'
+import ContactForm from '../components/ContactForm.tsx'
 import '../styles/global.css'
+
+const nav = [
+  { label: 'Profile', href: '#profile' },
+  { label: 'Work', href: '#work' },
+  { label: 'Record', href: '#record' },
+  { label: 'Contact', href: '#contact' },
+]
+
+const stack = ['Java', 'C#', 'Python', 'Node.js', 'Flutter', 'Dart', 'Rust', 'SQL', 'Azure', 'Firebase', 'REST APIs', 'Git']
+const roles = ['web apps', 'REST APIs', 'mobile apps', 'developer tools']
+
+const skills = [
+  { k: 'Languages', v: ['Java', 'C#', 'Python', 'JavaScript', 'SQL', 'Dart', 'Rust'] },
+  { k: 'Web', v: ['HTML', 'CSS', 'Node.js', 'REST APIs'] },
+  { k: 'Mobile', v: ['Flutter', 'Dart', 'Kivy'] },
+  { k: 'Cloud / DB', v: ['Azure', 'Firebase'] },
+  { k: 'Tools', v: ['Git', 'CI/CD', 'pytest', 'Agile'] },
+  { k: 'Spoken', v: ['English', 'Afrikaans'] },
+]
+
+const work = [
+  { n: '01', title: 'FFP', meta: 'Fleet Failure Predictor', tags: ['Flutter', 'Dart', 'Firebase', 'REST'], year: '2026', href: 'https://www.echosoftware.co.za/products/ffp' },
+  { n: '02', title: 'BruvTorrent', meta: 'BitTorrent client from scratch', tags: ['Python', 'asyncio', 'PySide6'], year: '2025', href: 'https://github.com/Ronan-R-R/BruvTorrent' },
+  { n: '03', title: 'yt-mp3', meta: 'Cross-platform audio downloader', tags: ['Python', 'Kivy', 'ffmpeg'], year: '2025', href: 'https://github.com/Ronan-R-R/yt-mp3' },
+  { n: '04', title: 'Echo Software', meta: 'Software studio website', tags: ['HTML', 'CSS', 'JS'], year: '2025', href: 'https://echosoftware.co.za' },
+  { n: '05', title: 'SkyCast', meta: 'Real-time weather dashboard', tags: ['JavaScript', 'OWM API', 'Leaflet'], year: '2024', href: 'https://ronan-r-r.github.io/SkyCast/' },
+]
+
+const record = [
+  { year: '2026 -', role: 'Junior Software Engineer', org: 'Coast IT Pty (Ltd), Full-time' },
+  { year: '2025', role: 'Junior Software Engineer', org: 'Coast IT Pty (Ltd), Internship' },
+  { year: '2025', role: 'Intern', org: 'Open Vantage' },
+  { year: '2025-26', role: 'Freelance Web Developer', org: 'Self-employed' },
+  { year: '2023 -', role: 'Software Engineering (NQF 6)', org: 'CTU Training Solutions, Boksburg' },
+  { year: '2021', role: 'National Senior Certificate', org: 'Bergsig Academy, Rustenburg' },
+]
+
+const certs = [
+  ['Software Engineer NQF 6', 'MICT SETA', '2025'],
+  ['IT Systems Development NQF 5', 'MICT SETA', '2024'],
+  ['AI-900: Azure AI Fundamentals', 'Microsoft', '2024'],
+  ['IT Systems Development NQF 4', 'MICT SETA', '2023'],
+  ['IT Specialist: JavaScript', 'Certiport', '2023'],
+  ['IT Specialist: HTML & CSS', 'Certiport', '2023'],
+]
 ---
 
 <Base>
-  <Nav />
-  <main>
-    <HeroSection />
-    <ExpertiseSection />
-    <TimelineSection />
-    <ProjectsSection />
-    <ContactSection />
+  <a id="top"></a>
+
+  <!-- Load intro -->
+  <div id="ed-loader" aria-hidden="true">
+    <span class="ed-loader__tag ed-mono">Ronan Roberts / Portfolio</span>
+    <span class="ed-loader__count ed-mono" id="ed-count">000</span>
+    <span class="ed-loader__bar"></span>
+  </div>
+
+  <!-- Custom cursor -->
+  <div id="ed-cursor" aria-hidden="true"></div>
+  <div id="ed-cursor-ring" aria-hidden="true"><span id="ed-cursor-label"></span></div>
+
+  <header id="site-header" class="fixed top-0 inset-x-0 z-50">
+    <div class="container-wide">
+      <div id="nav-inner" class="flex items-center justify-between h-[72px] transition-all duration-300">
+        <a href="#top" class="ed-mono font-bold tracking-tight text-sm" data-cursor>RR / ROBERTS</a>
+        <nav class="hidden md:flex items-center gap-7">
+          {nav.map(item => (
+            <a href={item.href} class="ed-mono text-xs uppercase tracking-widest nav-link" data-cursor>{item.label}</a>
+          ))}
+        </nav>
+        <div class="flex items-center gap-4">
+          <span class="ed-avail hidden sm:inline-flex"><i></i>Available for work</span>
+          <button class="ed-menu-btn ed-mono text-xs uppercase tracking-widest" id="ed-menu-open" aria-label="Open menu" data-cursor>Menu</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="ed-mobile" aria-hidden="true">
+    <button id="ed-menu-close" class="ed-mono text-xs uppercase tracking-widest absolute top-6 right-6" style="color: var(--muted)" aria-label="Close menu">Close</button>
+    {nav.map(item => <a href={item.href} data-ed-mclose>{item.label}</a>)}
+  </div>
+
+  <main class="container-wide pt-[72px]">
+
+    <!-- Masthead -->
+    <section class="ed-hero min-h-[calc(100dvh-72px)] flex flex-col justify-center pt-10 pb-16">
+      <div class="ed-hero-top" data-reveal>
+        <span class="ed-kicker">Full-stack Developer</span>
+        <span class="ed-kicker ed-clock" id="ed-clock">Germiston ZA</span>
+      </div>
+      <hr class="ed-rule-accent mb-8 mt-6" data-reveal />
+
+      <h1 class="ed-huge ed-name" data-ed-title>
+        <span class="ed-line"><span>Ronan</span></span>
+        <span class="ed-line"><span class="ed-outline">Roberts</span></span>
+      </h1>
+
+      <hr class="ed-rule mt-10 mb-8" data-reveal />
+      <div class="grid grid-cols-1 md:grid-cols-[1.7fr_1fr] gap-8 md:gap-16 items-end">
+        <div>
+          <div class="ed-rotate ed-mono mb-5" aria-hidden="true">
+            <span>I build</span>
+            <span class="ed-rotate__mask"><span class="ed-rotate__list" data-rotate>
+              {roles.map(r => <span>{r}</span>)}
+              <span>{roles[0]}</span>
+            </span></span>
+          </div>
+          <p class="text-lg md:text-xl leading-relaxed" style="max-width: 58ch" data-reveal>
+            Web front-ends and back-ends in Java, C#, Python and Node.js, and cross-platform
+            mobile apps in Flutter and Dart. Currently a Junior Software Engineer at Coast IT.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3 md:justify-end" data-reveal>
+          <a href="#work" class="btn-primary magnetic" data-magnetic data-cursor>View work</a>
+          <a href="#contact" class="btn-ghost magnetic" data-magnetic data-cursor>Get in touch</a>
+        </div>
+      </div>
+    </section>
   </main>
-  <Footer />
+
+  <!-- Velocity marquee -->
+  <section class="py-6 border-y ed-marquee-wrap" style="border-color: var(--border)" aria-hidden="true">
+    <div class="marquee">
+      <div class="marquee__track">
+        {stack.map(s => <span class="marquee__item">{s}</span>)}
+      </div>
+      <div class="marquee__track" aria-hidden="true">
+        {stack.map(s => <span class="marquee__item">{s}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <main class="container-wide">
+
+    <!-- Profile / skills -->
+    <section id="profile" class="py-24 lg:py-36">
+      <h2 class="ed-huge ed-h2 mb-12" data-reveal>Profile</h2>
+
+      <p class="ed-fill" data-fill>
+        I care about software that ships, holds up in production, and still reads clearly six
+        months later. I work across the whole stack and own a feature from schema to screen.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10 mt-20">
+        {skills.map(group => (
+          <div data-reveal>
+            <div class="ed-kicker mb-3 pb-2" style="border-bottom: 1px solid var(--border)">{group.k}</div>
+            <ul class="ed-mono text-sm leading-8">
+              {group.v.map(item => <li>{item}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <!-- Work: horizontal-pinned act (falls back to vertical stack) -->
+  <section id="work" class="ed-work">
+    <div class="container-wide ed-work-head">
+      <h2 class="ed-huge ed-h2" data-reveal>Selected<br />Work</h2>
+      <span class="ed-mono text-xs" style="color: var(--muted)" data-reveal>05 projects, 2024 to 2026</span>
+    </div>
+    <div class="ed-work-viewport">
+      <div class="ed-work-track">
+        {work.map(item => (
+          <a href={item.href} target="_blank" rel="noopener noreferrer" class="ed-panel" data-hr data-cursor data-cursor-label="Open">
+            <span class="ed-panel__num ed-outline">{item.n}</span>
+            <span class="ed-panel__body">
+              <span class="ed-panel__title">{item.title}</span>
+              <span class="ed-mono text-sm" style="color: var(--muted)">{item.meta}</span>
+            </span>
+            <span class="ed-panel__foot">
+              <span class="flex flex-wrap gap-1.5">
+                {item.tags.map(t => <span class="ed-tag">{t}</span>)}
+              </span>
+              <span class="ed-panel__year ed-mono">{item.year}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+              </span>
+            </span>
+          </a>
+        ))}
+        <a href="https://github.com/Ronan-R-R" target="_blank" rel="noopener noreferrer" class="ed-panel ed-panel--end" data-hr data-cursor data-cursor-label="GitHub">
+          <span class="ed-panel__title">More<br />on GitHub</span>
+          <span class="ed-mono text-sm" style="color: var(--muted)">github.com/Ronan-R-R</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container-wide">
+
+    <!-- Record -->
+    <section id="record" class="py-24 lg:py-36">
+      <h2 class="ed-huge ed-h2 mb-12" data-reveal>Record</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-12">
+        <div data-reveal>
+          <div class="ed-kicker mb-4">Experience &amp; Education</div>
+          {record.map(r => (
+            <div class="grid grid-cols-[5.5rem_1fr] gap-4 py-4" style="border-top: 1px solid var(--border)">
+              <span class="ed-mono text-xs" style="color: var(--accent)">{r.year}</span>
+              <span>
+                <span class="font-display font-bold block">{r.role}</span>
+                <span class="ed-mono text-xs" style="color: var(--muted)">{r.org}</span>
+              </span>
+            </div>
+          ))}
+        </div>
+        <div data-reveal>
+          <div class="ed-kicker mb-4">Certifications</div>
+          {certs.map(c => (
+            <div class="flex items-baseline justify-between gap-4 py-4" style="border-top: 1px solid var(--border)">
+              <span>
+                <span class="font-display font-semibold block">{c[0]}</span>
+                <span class="ed-mono text-xs" style="color: var(--muted)">{c[1]}</span>
+              </span>
+              <span class="ed-mono text-xs" style="color: var(--accent)">{c[2]}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-24 lg:py-36">
+      <h2 class="ed-huge ed-contact-title" data-ed-title>
+        <span class="ed-line"><span>Let's</span></span>
+        <span class="ed-line"><span class="ed-outline">Talk</span></span>
+      </h2>
+      <hr class="ed-rule-accent my-12" data-reveal />
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20">
+        <div data-reveal>
+          <p class="text-2xl md:text-4xl font-display font-bold leading-tight mb-10" style="max-width: 16ch">
+            Open to freelance projects and job opportunities.
+          </p>
+          <div class="ed-mono text-sm flex flex-col gap-3">
+            <a href="mailto:ronanr2003@gmail.com" class="ed-link w-fit" data-cursor>ronanr2003@gmail.com</a>
+            <a href="https://www.linkedin.com/in/rr-roberts/" target="_blank" rel="noopener noreferrer" class="ed-link w-fit" data-cursor>linkedin.com/in/rr-roberts</a>
+            <a href="https://github.com/Ronan-R-R" target="_blank" rel="noopener noreferrer" class="ed-link w-fit" data-cursor>github.com/Ronan-R-R</a>
+          </div>
+        </div>
+        <div data-reveal>
+          <ContactForm client:visible />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="ed-footmark" aria-hidden="true"><span>ROBERTS</span></div>
+
+  <footer class="container-wide py-10 ed-mono text-xs flex flex-col sm:flex-row justify-between gap-3" style="border-top: 1px solid var(--border); color: var(--muted)">
+    <span>© <span id="footer-year"></span> Ronan Roberts</span>
+    <span>Designed and built by Ronan Roberts</span>
+  </footer>
+
+  <script>
+    const el = document.getElementById('footer-year')
+    if (el) el.textContent = String(new Date().getFullYear())
+
+    const open = document.getElementById('ed-menu-open')
+    const close = document.getElementById('ed-menu-close')
+    const panel = document.getElementById('ed-mobile')
+    open?.addEventListener('click', () => panel?.classList.add('open'))
+    close?.addEventListener('click', () => panel?.classList.remove('open'))
+    document.querySelectorAll('[data-ed-mclose]').forEach((a) =>
+      a.addEventListener('click', () => panel?.classList.remove('open'))
+    )
+  </script>
 </Base>
